@@ -1,4 +1,4 @@
-package mx.ipn.consultoriomedico.dominio.entidades;
+package mx.ipn.consultoriomedico.core.domain.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,6 +15,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+
 import lombok.NoArgsConstructor;
 
 @Data
