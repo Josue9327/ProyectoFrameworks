@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import mx.ipn.consultoriomedico.core.domain.entities.Receta;
+import mx.ipn.consultoriomedico.features.receta.DTO.RecetaDTO;
 
 public interface ServiceReceta {
 
@@ -21,4 +22,8 @@ public interface ServiceReceta {
 
     // Generar un reporte PDF con la lista de recetas
     ByteArrayInputStream reportePDF(List<Receta> listaRecetas);
+
+    Receta crearReceta(RecetaDTO recetaDTO);
+
+    Receta actualizarReceta(RecetaDTO recetaDTO);
 }

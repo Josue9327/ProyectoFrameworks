@@ -31,7 +31,6 @@ public class Tratamiento implements Serializable {
     @Column(name = "id_tratamiento", nullable = false)
     private Long idTratamiento;
 
-    @Lob
     @Column(name = "diagnostico", length = 200, nullable = false)
     private String diagnostico;
 

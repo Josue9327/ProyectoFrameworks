@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mx.ipn.consultoriomedico.core.domain.entities.Receta;
+import mx.ipn.consultoriomedico.features.receta.DTO.RecetaDTO;
 import mx.ipn.consultoriomedico.features.receta.service.ServiceReceta;
 
 @RestController
@@ -35,16 +36,16 @@ public class RecetaController {
     // Crear una nueva receta
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Receta create(@RequestBody Receta receta) {
-        return serviceReceta.save(receta);
+    public Receta create(@RequestBody RecetaDTO recetaDTO) {
+        return serviceReceta.crearReceta(recetaDTO);
     }
 
     // Actualizar una receta existente
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Receta update(@PathVariable Long id, @RequestBody Receta receta) {
-        receta.setIdReceta(id);
-        return serviceReceta.save(receta);
+    public Receta update(@PathVariable Long id, @RequestBody RecetaDTO recetaDTO) {
+        recetaDTO.setIdReceta(id);
+        return serviceReceta.actualizarReceta(recetaDTO);
     }
 
     // Eliminar una receta

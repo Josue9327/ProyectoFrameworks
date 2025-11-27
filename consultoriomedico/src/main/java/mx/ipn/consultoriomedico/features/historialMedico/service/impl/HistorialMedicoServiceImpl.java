@@ -1,19 +1,20 @@
 package mx.ipn.consultoriomedico.features.historialMedico.service.impl;
 
-import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import jakarta.transaction.Transactional;
 import mx.ipn.consultoriomedico.core.domain.entities.HistorialMedico;
+import mx.ipn.consultoriomedico.core.domain.entities.Paciente;
+import mx.ipn.consultoriomedico.features.historialMedico.DTO.HistorialMedicoDTO;
 import mx.ipn.consultoriomedico.features.historialMedico.repository.HistorialMedicoRepository;
-import mx.ipn.consultoriomedico.features.historialMedico.service.HistorialMedicosService;
+import mx.ipn.consultoriomedico.features.historialMedico.service.HistorialMedicoService;
+import mx.ipn.consultoriomedico.features.paciente.repository.PacienteRepository;
 
 @Service
 @Transactional
-public class HistorialMedicoServiceImpl implements HistorialMedicosService {
+public class HistorialMedicoServiceImpl implements HistorialMedicoService {
 
     @Autowired
     private HistorialMedicoRepository historialMedicoRepository;
@@ -40,9 +41,32 @@ public class HistorialMedicoServiceImpl implements HistorialMedicosService {
         }
     }
 
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
     @Override
-    public ByteArrayInputStream reportePDF(List<HistorialMedico> listaHostHistorialesMedicos) {
-        throw new UnsupportedOperationException("Unimplemented method 'reportePDF'");
+    public HistorialMedico crearHistorialMedico(HistorialMedicoDTO historialMedicoDTO) {
+        Paciente paciente = pacienteRepository.findById(historialMedicoDTO.getPacienteId())
+                .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+
+        HistorialMedico historialMedico = new HistorialMedico();
+        historialMedico.setAlergias(historialMedicoDTO.getAlergias());
+        historialMedico.setEnfermedadesCronicas(historialMedicoDTO.getEnfermedadesCronicas());
+        historialMedico.setAdicciones(historialMedicoDTO.getAdicciones());
+        historialMedico.setDiscapacidades(historialMedicoDTO.getDiscapacidades());
+        historialMedico.setPaciente(paciente);
+
+        return historialMedicoRepository.save(historialMedico);
     }
 
+    @Override
+    public HistorialMedico actualizarHistorialMedico(HistorialMedicoDTO historialMedicoDTO) {
+        HistorialMedico historialMedico = historialMedicoRepository.findById(historialMedicoDTO.getIdHistorialMedico())
+                .orElseThrow(() -> new RuntimeException("Historial médico no encontrado"));
+        historialMedico.setAlergias(historialMedicoDTO.getAlergias());
+        historialMedico.setEnfermedadesCronicas(historialMedicoDTO.getEnfermedadesCronicas());
+        historialMedico.setAdicciones(historialMedicoDTO.getAdicciones());
+        historialMedico.setDiscapacidades(historialMedicoDTO.getDiscapacidades());
+        return historialMedicoRepository.save(historialMedico);
+    }
 }

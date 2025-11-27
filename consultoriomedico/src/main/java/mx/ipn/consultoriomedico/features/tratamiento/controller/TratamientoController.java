@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mx.ipn.consultoriomedico.core.domain.entities.Tratamiento;
+import mx.ipn.consultoriomedico.features.tratamiento.DTO.TratamientoDTO;
 import mx.ipn.consultoriomedico.features.tratamiento.service.TratamientoService;
 
 @RestController
@@ -35,16 +36,16 @@ public class TratamientoController {
     // Crear un nuevo tratamiento
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Tratamiento create(@RequestBody Tratamiento tratamiento) {
-        return tratamientoService.save(tratamiento);
+    public Tratamiento create(@RequestBody TratamientoDTO tratamientoDTO) {
+        return tratamientoService.crearTratamiento(tratamientoDTO);
     }
 
     // Actualizar un tratamiento existente
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Tratamiento update(@PathVariable Long id, @RequestBody Tratamiento tratamiento) {
-        tratamiento.setIdTratamiento(id);
-        return tratamientoService.save(tratamiento);
+    public Tratamiento update(@PathVariable Long id, @RequestBody TratamientoDTO tratamientoDTO) {
+        tratamientoDTO.setIdTratamiento(id);
+        return tratamientoService.actualizarTratamiento(tratamientoDTO);
     }
 
     // Eliminar un tratamiento

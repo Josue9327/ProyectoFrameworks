@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import mx.ipn.consultoriomedico.core.domain.entities.Cita;
+import mx.ipn.consultoriomedico.features.cita.DTO.CitaDTO;
 
 public interface CitaService {
 
@@ -16,4 +17,8 @@ public interface CitaService {
     public void deleteById(Long id);
 
     public ByteArrayInputStream reportePDF(List<Cita> listaCitas);
+
+    public Cita crearCita(CitaDTO citaDTO);
+
+    public Cita actualizarCita(CitaDTO citaDTO);
 }

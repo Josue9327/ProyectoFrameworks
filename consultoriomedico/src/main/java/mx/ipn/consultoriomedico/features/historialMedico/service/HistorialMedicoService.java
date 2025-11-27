@@ -1,11 +1,11 @@
 package mx.ipn.consultoriomedico.features.historialMedico.service;
 
-import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import mx.ipn.consultoriomedico.core.domain.entities.HistorialMedico;
+import mx.ipn.consultoriomedico.features.historialMedico.DTO.HistorialMedicoDTO;
 
-public interface HistorialMedicosService {
+public interface HistorialMedicoService {
 
     public List<HistorialMedico> findAll();
 
@@ -15,6 +15,8 @@ public interface HistorialMedicosService {
 
     public void deleteById(Long id);
 
-    public ByteArrayInputStream reportePDF(List<HistorialMedico> listaHostHistorialesMedicos);
+    public HistorialMedico crearHistorialMedico(HistorialMedicoDTO historialMedicoDTO);
+
+    public HistorialMedico actualizarHistorialMedico(HistorialMedicoDTO historialMedicoDTO);
 
 }

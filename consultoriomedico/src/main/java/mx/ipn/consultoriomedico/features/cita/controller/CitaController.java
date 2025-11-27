@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mx.ipn.consultoriomedico.core.domain.entities.Cita;
+import mx.ipn.consultoriomedico.features.cita.DTO.CitaDTO;
 import mx.ipn.consultoriomedico.features.cita.service.CitaService;
 
 @RestController
@@ -35,16 +37,18 @@ public class CitaController {
     // Crear una nueva cita
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cita create(@RequestBody Cita cita) {
-        return citaService.save(cita);
+    public ResponseEntity<Cita> crearCita(@RequestBody CitaDTO citaDTO) {
+        Cita cita = citaService.crearCita(citaDTO);
+        return ResponseEntity.ok(cita);
     }
 
     // Actualizar una cita existente
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Cita update(@PathVariable Long id, @RequestBody Cita cita) {
-        cita.setIdCita(id);
-        return citaService.save(cita);
+    public ResponseEntity<Cita> update(@PathVariable Long id, @RequestBody CitaDTO citaDTO) {
+        citaDTO.setIdCita(id);
+        Cita cita = citaService.actualizarCita(citaDTO);
+        return ResponseEntity.ok(cita);
     }
 
     // Eliminar una cita

@@ -3,6 +3,8 @@ package mx.ipn.consultoriomedico.core.domain.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +41,7 @@ public class Cita implements Serializable {
     private Date fecha;
 
     @NotNull(message = "La hora no puede estar vacía")
+    @JsonFormat(pattern = "HH:mm:ss")
     @Temporal(TemporalType.TIME)
     private Date hora;
 
@@ -49,5 +52,9 @@ public class Cita implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_doctor", nullable = false)
     private Doctor doctor;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_cita", nullable = false)
+    private TipoCita tipoCita;
 
 }
