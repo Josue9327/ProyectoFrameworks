@@ -22,18 +22,20 @@ public class HistorialMedico implements Serializable {
     @Column(name = "id_historial_medico", nullable = false)
     private Long idHistorialMedico;
 
-    @NotNull(message = "La fecha no puede estar vacía")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    @Column(name = "alergias")
+    private String alergias;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String descripcion;
+    @Column(name = "enfermedades_cronicas")
+    private String enfermedadesCronicas;
 
-    @ManyToOne
+    @Column(name = "adicciones")
+    private String adicciones;
+
+    @Column(name = "discapacidades")
+    private String discapacidades;
+
+    @OneToOne
     @JoinColumn(name = "id_paciente", nullable = false)
     private Paciente paciente;
 
-    @ManyToOne
-    @JoinColumn(name = "id_doctor", nullable = false)
-    private Doctor doctor;
 }
