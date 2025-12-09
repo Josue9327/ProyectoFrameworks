@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mx.ipn.consultoriomedico.core.domain.entities.Paciente;
 import mx.ipn.consultoriomedico.features.paciente.service.PacienteService;
+import mx.ipn.consultoriomedico.util.service.EmailService;
 
 @RestController
 @RequestMapping("/api/paciente")
@@ -30,6 +31,9 @@ public class PacienteController {
 
     @Autowired
     private PacienteService service;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -75,4 +79,15 @@ public class PacienteController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(bis));
     }
+
+    @GetMapping("/enviarPDFCorreo/{correo}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> enviarPDFCorreo(@PathVariable String correo) {
+        List<Paciente> listaPacientes = service.findAll();
+        ByteArrayInputStream bis = service.reportePDF(listaPacientes);
+        emailService.enviarCorreo(correo, "Reporte de Pacientes",
+                "Se adjunta el reporte de pacientes", bis);
+        return ResponseEntity.ok("Correo enviado correctamente");
+    }
+
 }
