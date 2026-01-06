@@ -1,0 +1,63 @@
+<div class="page">
+  <div class="top">
+    <div>
+      <h2 class="title">Pacientes</h2>
+      <p class="muted">Gestión y consulta de pacientes registrados.</p>
+    </div>
+
+    <a routerLink="/doctor/pacientes/nuevo" class="btn btn-vital">
+      + Nuevo paciente
+    </a>
+  </div>
+
+  <div class="cardx">
+    <div class="toolbar">
+      <span class="pi pi-search"></span>
+      <input
+        pInputText
+        class="search"
+        [(ngModel)]="search"
+        (ngModelChange)="applyFilter()"
+        placeholder="Buscar por nombre o correo..."
+      />
+      <button class="btn btn-outline-vital ms-auto" (click)="load()">Recargar</button>
+    </div>
+
+    <div class="err" *ngIf="error">{{ error }}</div>
+
+    <p-table
+      [value]="filtered"
+      [paginator]="true"
+      [rows]="8"
+      [loading]="loading"
+      [rowsPerPageOptions]="[8,12,20]"
+      responsiveLayout="scroll"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th style="width: 220px;">Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-p>
+        <tr>
+          <td>
+            <b>{{ p.nombre }}</b>
+            <!-- Adjusted fields to match local model (appat, apmat) -->
+            <div class="muted small">{{ p.appat }} {{ p.apmat }}</div>
+          </td>
+          <td>{{ p.correo || '-' }}</td>
+          <td>{{ p.telefono || '-' }}</td>
+          <td class="actions">
+            <a class="btn btn-sm btn-outline-vital" [routerLink]="['/doctor/pacientes', p.idPaciente]">Ver</a>
+            <a class="btn btn-sm btn-outline-vital" [routerLink]="['/doctor/pacientes', p.idPaciente, 'editar']">Editar</a>
+            <button class="btn btn-sm btn-danger" (click)="delete(p)">Eliminar</button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

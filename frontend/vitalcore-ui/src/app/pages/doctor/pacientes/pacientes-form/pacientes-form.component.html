@@ -1,0 +1,78 @@
+<div class="wrap">
+    <div class="head">
+        <a routerLink="/doctor/pacientes" class="btn btn-outline-vital">← Volver</a>
+        <h2 class="title">{{ isEdit ? 'Editar paciente' : 'Nuevo paciente' }}</h2>
+        <div></div>
+    </div>
+
+    <div class="cardx">
+        <div *ngIf="loading">Cargando...</div>
+
+        <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="submit()">
+            <div class="grid">
+                <div>
+                    <label class="lbl">Nombre *</label>
+                    <input class="form-control input" formControlName="nombre" placeholder="Nombre" />
+                    <div class="err" *ngIf="form.get('nombre')?.touched && form.get('nombre')?.invalid">
+                        Nombre requerido (mín 2).
+                    </div>
+                </div>
+
+                <div>
+                    <label class="lbl">Apellido paterno *</label>
+                    <input class="form-control input" formControlName="appat" placeholder="Apellido paterno" />
+                    <div class="err" *ngIf="form.get('appat')?.touched && form.get('appat')?.invalid">
+                        Requerido.
+                    </div>
+                </div>
+
+                <div>
+                    <label class="lbl">Apellido materno *</label>
+                    <input class="form-control input" formControlName="apmat" placeholder="Apellido materno" />
+                    <div class="err" *ngIf="form.get('apmat')?.touched && form.get('apmat')?.invalid">
+                        Requerido.
+                    </div>
+                </div>
+
+                <div>
+                    <label class="lbl">Fecha de Nacimiento *</label>
+                    <input type="date" class="form-control input" formControlName="fechaNacimiento" />
+                    <div class="err"
+                        *ngIf="form.get('fechaNacimiento')?.touched && form.get('fechaNacimiento')?.invalid">
+                        Requerido.
+                    </div>
+                </div>
+
+                <div>
+                    <label class="lbl">Dirección *</label>
+                    <input class="form-control input" formControlName="direccion" placeholder="Dirección completa" />
+                    <div class="err" *ngIf="form.get('direccion')?.touched && form.get('direccion')?.invalid">
+                        Requerido.
+                    </div>
+                </div>
+
+                <div>
+                    <label class="lbl">Correo</label>
+                    <input class="form-control input" formControlName="correo" placeholder="correo@ejemplo.com" />
+                    <div class="err" *ngIf="form.get('correo')?.touched && form.get('correo')?.invalid">
+                        Correo inválido.
+                    </div>
+                </div>
+
+                <div>
+                    <label class="lbl">Teléfono *</label>
+                    <input class="form-control input" formControlName="telefono" placeholder="5555555555" />
+                    <div class="err" *ngIf="form.get('telefono')?.touched && form.get('telefono')?.invalid">
+                        Requerido.
+                    </div>
+                </div>
+            </div>
+
+            <div class="err mt-3" *ngIf="error">{{ error }}</div>
+
+            <button class="btn btn-vital mt-3 w-100" [disabled]="loading">
+                {{ isEdit ? 'Guardar cambios' : 'Crear paciente' }}
+            </button>
+        </form>
+    </div>
+</div>

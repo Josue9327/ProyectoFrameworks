@@ -1,0 +1,60 @@
+.page { padding: 20px 0 40px; }
+.title { color: #0a3d61; font-weight: 900; margin: 0; }
+.muted { color: #5c7d95; margin: 6px 0 0; }
+.small { font-size: 0.9rem; }
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px auto;
+  width: min(1100px, calc(100% - 40px));
+}
+
+.cardx {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e3eef7;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.08);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px 14px;
+}
+
+.search {
+  width: min(420px, 100%);
+  border-radius: 14px;
+  padding: 10px 12px;
+  border: 1px solid #dfeaf3;
+}
+
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn-vital {
+  background: #0a3d61;
+  color: #fff;
+  border: 0;
+  font-weight: 900;
+  padding: 10px 14px;
+  border-radius: 14px;
+  text-decoration: none;
+}
+
+.btn-outline-vital {
+  border: 2px solid #0a3d61;
+  color: #0a3d61;
+  background: transparent;
+  font-weight: 900;
+  padding: 8px 12px;
+  border-radius: 14px;
+}
+
+.err { color: #b00020; margin: 8px 0 0; }
