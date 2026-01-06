@@ -1,0 +1,48 @@
+.wrap {
+    width: min(1100px, calc(100% - 40px));
+    margin: 20px auto;
+}
+
+.title {
+    color: #0a3d61;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 18px;
+    border: 1px solid #e3eef7;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.card span {
+    color: #5c7d95;
+    font-size: 0.85rem;
+}
+
+.card b {
+    display: block;
+    margin: 8px 0;
+    font-size: 1.1rem;
+    color: #06263c;
+}
+
+.card a {
+    color: #0a3d61;
+    font-weight: 900;
+    text-decoration: none;
+}

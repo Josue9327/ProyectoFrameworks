@@ -1,0 +1,36 @@
+.wrap {
+    width: min(1100px, calc(100% - 40px));
+    margin: 20px auto 40px;
+}
+
+.head {
+    margin-bottom: 18px;
+}
+
+.title {
+    color: #0a3d61;
+    font-weight: 900;
+    margin: 0;
+}
+
+.muted {
+    color: #5c7d95;
+    margin: 6px 0 0;
+}
+
+.cardx {
+    background: #fff;
+    border: 1px solid #e3eef7;
+    border-radius: 18px;
+    padding: 14px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+}
+
+.err {
+    color: #b00020;
+    margin-bottom: 10px;
+}
+
+small {
+    font-size: 0.85rem;
+}

@@ -1,0 +1,28 @@
+<div class="wrap">
+    <h2 class="title">Bienvenido, {{ paciente.nombre }}</h2>
+
+    <div class="grid">
+        <div class="card">
+            <span>Próxima cita</span>
+            <b>{{ paciente.proximaCita || 'No programada' }}</b>
+            <a routerLink="/paciente/citas">Ver citas</a>
+        </div>
+
+        <div class="card">
+            <span>Recetas activas</span>
+            <b>{{ paciente.recetasActivas }}</b>
+            <a routerLink="/paciente/recetas">Ver recetas</a>
+        </div>
+
+        <div class="card">
+            <span>Médico</span>
+            <b>{{ paciente.medico }}</b>
+        </div>
+
+        <div class="card">
+            <span>Mi perfil</span>
+            <b>Información personal</b>
+            <a routerLink="/paciente/perfil">Editar perfil</a>
+        </div>
+    </div>
+</div>

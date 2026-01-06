@@ -1,0 +1,40 @@
+<div class="wrap">
+    <div class="head">
+        <h2 class="title">Mis Recetas</h2>
+        <p class="muted">Historial de recetas y medicamentos prescritos.</p>
+    </div>
+
+    <div class="cardx">
+        <div *ngIf="loading">Cargando recetas...</div>
+        <div class="err" *ngIf="error">{{ error }}</div>
+
+        <p-table *ngIf="!loading && !error" [value]="recetas" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Médico</th>
+                    <th>Medicamento</th>
+                    <th>Indicaciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-r>
+                <tr>
+                    <td>{{ r.tratamiento.cita.fecha | date:'dd/MM/yyyy' }}</td>
+                    <td>
+                        <b>{{ r.tratamiento.cita.doctor.nombre }} {{ r.tratamiento.cita.doctor.appat }}</b>
+                    </td>
+                    <td>{{ r.medicamento }}</td>
+                    <td>
+                        <div>{{ r.dosis }}</div>
+                        <small class="muted">{{ r.tratamiento.diagnostico }}</small>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="4">No tienes recetas registradas.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

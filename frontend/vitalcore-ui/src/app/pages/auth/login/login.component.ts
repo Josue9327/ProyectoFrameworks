@@ -46,8 +46,10 @@ export class LoginComponent {
 
     this.loading = true;
     this.auth.login(this.form.getRawValue() as any).subscribe({
-      next: () => {
+      next: (response) => {
         this.loading = false;
+        // Save session
+        this.auth.setUser(response);
         this.router.navigateByUrl('/');
       },
       error: () => {

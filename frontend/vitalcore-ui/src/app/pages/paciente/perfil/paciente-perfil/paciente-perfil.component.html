@@ -1,0 +1,86 @@
+<div class="wrap">
+    <div class="head">
+        <h2 class="title">Mi Perfil</h2>
+        <p class="muted">Información personal y antecedentes.</p>
+    </div>
+
+    <div class="grid-layout">
+        <!-- Left: Personal Form -->
+        <div class="cardx">
+            <h3 class="sub">Datos Personales</h3>
+
+            <div *ngIf="loading">Cargando...</div>
+
+            <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="save()">
+                <div class="form-grid">
+                    <div>
+                        <label>Nombre</label>
+                        <input formControlName="nombre" class="input">
+                    </div>
+                    <div>
+                        <label>Apellido Paterno</label>
+                        <input formControlName="appat" class="input">
+                    </div>
+                    <div>
+                        <label>Apellido Materno</label>
+                        <input formControlName="apmat" class="input">
+                    </div>
+                    <div>
+                        <label>Fecha Nacimiento</label>
+                        <input type="date" formControlName="fechaNacimiento" class="input">
+                    </div>
+                    <div class="full">
+                        <label>Dirección</label>
+                        <input formControlName="direccion" class="input">
+                    </div>
+                    <div>
+                        <label>Correo</label>
+                        <input formControlName="correo" class="input">
+                    </div>
+                    <div>
+                        <label>Teléfono</label>
+                        <input formControlName="telefono" class="input">
+                    </div>
+                </div>
+
+                <div class="msgs">
+                    <div class="err" *ngIf="error">{{ error }}</div>
+                    <div class="success" *ngIf="success">{{ success }}</div>
+                </div>
+
+                <button class="btn btn-vital mt-3 w-100" [disabled]="saving">
+                    {{ saving ? 'Guardando...' : 'Guardar Cambios' }}
+                </button>
+            </form>
+        </div>
+
+        <!-- Right: History (ReadOnly) -->
+        <div class="cardx">
+            <h3 class="sub">Historial Básico</h3>
+            <div *ngIf="loading">Cargando...</div>
+
+            <div *ngIf="!loading && !historial">
+                <p class="muted">No hay historial médico registrado.</p>
+            </div>
+
+            <div *ngIf="!loading && historial" class="history-list">
+                <div class="h-item">
+                    <b>Alergias</b>
+                    <p>{{ historial.alergias || 'Ninguna' }}</p>
+                </div>
+                <div class="h-item">
+                    <b>Enfermedades Crónicas</b>
+                    <p>{{ historial.enfermedadesCronicas || 'Ninguna' }}</p>
+                </div>
+                <div class="h-item">
+                    <b>Adicciones</b>
+                    <p>{{ historial.adicciones || 'Ninguna' }}</p>
+                </div>
+                <div class="h-item">
+                    <b>Discapacidades</b>
+                    <p>{{ historial.discapacidades || 'Ninguna' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

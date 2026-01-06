@@ -1,15 +1,22 @@
 @use "../../../../styles/mixins" as m;
 
 .vc-header {
+  /* Aplicamos el mismo mixin que en el footer para consistencia */
   @include m.vc-gradient-bar;
-  height: 74px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  padding: 0 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  /* Sutil sombra para dar profundidad */
 }
 
 .vc-header__inner {
   @include m.vc-container;
+  /* Usamos el container para que alinee con el footer */
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,42 +25,57 @@
 .vc-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-decoration: none;
-  color: #0b1220;
-}
-
-.vc-logo {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.35);
-  backdrop-filter: blur(6px);
-}
-
-.vc-brand__text {
+  color: #fff;
   font-weight: 800;
-  font-size: 22px;
-  letter-spacing: 0.2px;
-  color: #0b1220;
+  font-size: 1.3rem;
+  /* El logo ahora resaltará más sobre el gradiente sólido */
 }
 
 .vc-nav {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 20px;
+}
 
-  a {
-    text-decoration: none;
-    font-weight: 700;
-    color: rgba(11, 18, 32, 0.8);
-    padding: 8px 10px;
-    border-radius: 12px;
+.vc-nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  /* Misma opacidad que usas en el footer */
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
 
-    &.active {
-      background: rgba(255,255,255,0.35);
-      color: #0b1220;
-    }
+  &:hover {
+    color: #fff;
+    opacity: 1;
   }
+}
+
+/* Botón Registrarse adaptado al fondo sólido */
+.btn-reg {
+  background: #fff !important;
+  color: #005bea !important;
+  /* Ajusta este color al tono principal de tu gradiente */
+  padding: 8px 20px !important;
+  border-radius: 8px;
+  font-weight: 700 !important;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Ajuste del menú de usuario para que combine con el footer */
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 15px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
