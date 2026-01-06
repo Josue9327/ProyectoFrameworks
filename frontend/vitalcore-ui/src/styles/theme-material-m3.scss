@@ -1,44 +1,17 @@
 @use "@angular/material" as mat;
 
-$primary-palette: mat.m3-define-palette((
-  0:  #000000,
-  10: #06263c,
-  20: #07314d,
-  30: #083b5c,
-  40: #0A3D61, // principal
-  50: #1e4f73,
-  60: #356585,
-  70: #4d7c98,
-  80: #6b97ad,
-  90: #a9c9dd,
-  95: #d7edf7,
-  99: #f7fcff,
-  100:#ffffff,
-));
-
-$secondary-palette: mat.m3-define-palette((
-  0:  #000000,
-  10: #0c2b36,
-  20: #13404f,
-  30: #1b5668,
-  40: #2f6f84,
-  50: #4689a0,
-  60: #60a4bb,
-  70: #79bfd7,
-  80: #87BEE0, // secundario (usado como acento)
-  90: #cfeaf7,
-  95: #e7f6fd,
-  99: #f7fcff,
-  100:#ffffff,
-));
-
-$theme: mat.m3-define-light-theme((
+$theme: mat.define-theme((
   color: (
-    primary: $primary-palette,
-    secondary: $secondary-palette,
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$cyan-palette
   ),
-  typography: mat.m3-define-typography-config(),
-  density: 0
+  typography: (
+    brand-family: "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+    plain-family: "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+  )
 ));
 
-@include mat.all-component-themes($theme);
+:root {
+  @include mat.all-component-themes($theme);
+}

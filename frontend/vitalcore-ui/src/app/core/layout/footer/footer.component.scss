@@ -1,0 +1,26 @@
+@use "../../../../styles/mixins" as m;
+
+.vc-footer {
+  @include m.vc-gradient-bar;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+}
+
+.vc-footer__inner {
+  @include m.vc-container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .left, .right {
+    color: rgba(255,255,255,0.92);
+    font-weight: 600;
+  }
+
+  .right {
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}

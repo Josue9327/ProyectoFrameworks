@@ -1,0 +1,89 @@
+@import "../../styles/mixins";
+
+.vc-wrap {
+  @include vc-container;
+}
+
+.title {
+  font-weight: 900;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  margin: 0 0 18px;
+  opacity: 0.8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 22px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.swatch .box {
+  height: 90px;
+  border-radius: 16px;
+  box-shadow: var(--vc-shadow);
+}
+
+.meta {
+  padding-top: 8px;
+  .hex { font-weight: 800; }
+  .name { opacity: 0.75; font-size: 13px; }
+}
+
+.demo {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  justify-items: start;
+}
+
+.circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, var(--vc-secondary), var(--vc-primary));
+  display: grid;
+  place-items: center;
+  box-shadow: var(--vc-shadow);
+}
+
+.plus {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.2);
+  display: grid;
+  place-items: center;
+  color: rgba(255,255,255,0.9);
+  font-size: 40px;
+  font-weight: 900;
+}
+
+.legend {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.dot {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}

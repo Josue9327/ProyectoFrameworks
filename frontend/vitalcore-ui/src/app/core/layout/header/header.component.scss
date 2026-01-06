@@ -1,0 +1,59 @@
+@use "../../../../styles/mixins" as m;
+
+.vc-header {
+  @include m.vc-gradient-bar;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.vc-header__inner {
+  @include m.vc-container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vc-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #0b1220;
+}
+
+.vc-logo {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(6px);
+}
+
+.vc-brand__text {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.2px;
+  color: #0b1220;
+}
+
+.vc-nav {
+  display: flex;
+  gap: 16px;
+
+  a {
+    text-decoration: none;
+    font-weight: 700;
+    color: rgba(11, 18, 32, 0.8);
+    padding: 8px 10px;
+    border-radius: 12px;
+
+    &.active {
+      background: rgba(255,255,255,0.35);
+      color: #0b1220;
+    }
+  }
+}

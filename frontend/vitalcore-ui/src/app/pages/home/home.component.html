@@ -1,1 +1,54 @@
-<p>home works!</p>
+<div class="vc-wrap">
+  <mat-card class="vc-card">
+    <h2 class="title">Guía de estilos (VitalCore)</h2>
+    <p class="subtitle">Colores y componentes base.</p>
+
+    <div class="grid">
+      <div class="palette">
+        <div class="swatch" *ngFor="let c of colors">
+          <div class="box" [style.background]="c.hex"></div>
+          <div class="meta">
+            <div class="hex">{{ c.hex }}</div>
+            <div class="name">{{ c.name }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="circle">
+          <div class="plus">+</div>
+        </div>
+
+        <div class="legend">
+          <div><b>Color Principal:</b> #0A3D61</div>
+          <div><b>Color Secundario:</b> #87BEE0</div>
+        </div>
+
+        <button class="vc-btn">Botón</button>
+
+        <div class="table">
+          <p-table [value]="colors" [rows]="6">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Color</th>
+                <th>HEX</th>
+                <th>Nombre</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+              <tr>
+                <td>
+                  <span class="dot" [style.background]="row.hex"></span>
+                </td>
+                <td>{{ row.hex }}</td>
+                <td>{{ row.name }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+        <button mat-raised-button color="primary">Material M3 (Primary)</button>
+      </div>
+    </div>
+  </mat-card>
+</div>
