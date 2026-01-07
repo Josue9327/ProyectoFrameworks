@@ -6,7 +6,7 @@ import { HistorialMedico } from '../models/historial-medico.model';
 
 @Injectable({ providedIn: 'root' })
 export class HistorialMedicoService {
-    private base = environment.apiBaseUrl; // /api
+    private base = environment.apiBaseUrl;
 
     constructor(private http: HttpClient) { }
 
