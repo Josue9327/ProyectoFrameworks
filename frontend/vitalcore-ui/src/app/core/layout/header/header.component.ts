@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/router';  // Importa NavigationEnd
+import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { filter } from 'rxjs/operators';  // Importa filter para filtrar los eventos de navegación
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -20,14 +20,12 @@ export class HeaderComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    // Inicializamos el estado del usuario al cargar el componente
     this.updateUserState();
 
-    // Escuchamos los cambios de navegación para actualizar el estado en cada cambio de ruta
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)  // Filtramos los eventos de navegación
+      filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      this.updateUserState();  // Actualizamos el estado después de cada navegación
+      this.updateUserState();
     });
   }
 
@@ -43,5 +41,29 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.auth.logout();
     this.router.navigateByUrl('/login');
+  }
+
+  goToDashboard() {
+    if (this.isLoggedIn) {
+      if (this.isPaciente) {
+        this.router.navigateByUrl('/paciente/dashboard');
+      } else if (this.isDoctor) {
+        this.router.navigateByUrl('/doctor/dashboard');
+      }
+    } else {
+      this.router.navigateByUrl('/');
+    }
+  }
+
+  goToInicio() {
+    if (this.isLoggedIn) {
+      if (this.isPaciente) {
+        this.router.navigateByUrl('/paciente/dashboard');
+      } else if (this.isDoctor) {
+        this.router.navigateByUrl('/doctor/dashboard');
+      }
+    } else {
+      this.router.navigateByUrl('/');
+    }
   }
 }
