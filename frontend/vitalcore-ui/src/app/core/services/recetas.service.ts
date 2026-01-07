@@ -6,26 +6,26 @@ import { Receta } from '../models/receta.model';
 
 @Injectable({ providedIn: 'root' })
 export class RecetasService {
-  private base = environment.apiBaseUrl;
+  private base = environment.apiBaseUrl + '/receta';
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Receta[]> {
-    return this.http.get<Receta[]>(`${this.base}/doctor/recetas`);
-  }
-
-  create(payload: Receta): Observable<any> {
-    return this.http.post(`${this.base}/doctor/recetas`, payload);
+    return this.http.get<Receta[]>(this.base);
   }
 
   getById(id: number): Observable<Receta> {
-    return this.http.get<Receta>(`${this.base}/doctor/recetas/${id}`);
+    return this.http.get<Receta>(`${this.base}/${id}`);
+  }
+
+  create(payload: Receta): Observable<any> {
+    return this.http.post(this.base, payload);
   }
 
   update(id: number, payload: Receta): Observable<any> {
-    return this.http.put(`${this.base}/doctor/recetas/${id}`, payload);
+    return this.http.put(`${this.base}/${id}`, payload);
   }
 
   remove(id: number): Observable<any> {
-    return this.http.delete(`${this.base}/doctor/recetas/${id}`);
+    return this.http.delete(`${this.base}/${id}`);
   }
 }

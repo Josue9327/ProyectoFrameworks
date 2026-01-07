@@ -6,26 +6,26 @@ import { Tratamiento } from '../models/tratamiento.model';
 
 @Injectable({ providedIn: 'root' })
 export class TratamientosService {
-  private base = environment.apiBaseUrl;
+  private base = environment.apiBaseUrl + '/tratamiento';
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Tratamiento[]> {
-    return this.http.get<Tratamiento[]>(`${this.base}/tratamiento`);
+    return this.http.get<Tratamiento[]>(this.base);
   }
 
   getById(id: number): Observable<Tratamiento> {
-    return this.http.get<Tratamiento>(`${this.base}/tratamiento/${id}`);
+    return this.http.get<Tratamiento>(`${this.base}/${id}`);
   }
 
   create(payload: Tratamiento): Observable<any> {
-    return this.http.post(`${this.base}/tratamiento`, payload);
+    return this.http.post(this.base, payload);
   }
 
   update(id: number, payload: Tratamiento): Observable<any> {
-    return this.http.put(`${this.base}/tratamiento/${id}`, payload);
+    return this.http.put(`${this.base}/${id}`, payload);
   }
 
   remove(id: number): Observable<any> {
-    return this.http.delete(`${this.base}/tratamiento/${id}`);
+    return this.http.delete(`${this.base}/${id}`);
   }
 }

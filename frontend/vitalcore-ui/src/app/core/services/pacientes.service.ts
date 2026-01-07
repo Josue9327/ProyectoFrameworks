@@ -6,32 +6,26 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PacientesService {
-  private base = environment.apiBaseUrl; // https://.../api :contentReference[oaicite:2]{index=2}
-
+  private base = environment.apiBaseUrl + '/paciente';
   constructor(private http: HttpClient) { }
 
-  // GET /paciente  :contentReference[oaicite:3]{index=3}
   getAll(): Observable<Paciente[]> {
-    return this.http.get<Paciente[]>(`${this.base}/paciente`);
+    return this.http.get<Paciente[]>(this.base);
   }
 
-  // GET /paciente/{id}
   getById(id: number): Observable<Paciente> {
-    return this.http.get<Paciente>(`${this.base}/paciente/${id}`);
+    return this.http.get<Paciente>(`${this.base}/${id}`);
   }
 
-  // POST /paciente
   create(payload: Paciente): Observable<any> {
-    return this.http.post(`${this.base}/paciente`, payload);
+    return this.http.post(this.base, payload);
   }
 
-  // PUT /paciente/{id}
   update(id: number, payload: Paciente): Observable<any> {
-    return this.http.put(`${this.base}/paciente/${id}`, payload);
+    return this.http.put(`${this.base}/${id}`, payload);
   }
 
-  // DELETE /paciente/{id}
   remove(id: number): Observable<any> {
-    return this.http.delete(`${this.base}/paciente/${id}`);
+    return this.http.delete(`${this.base}/${id}`);
   }
 }
