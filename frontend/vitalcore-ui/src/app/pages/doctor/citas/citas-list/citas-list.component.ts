@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../../core/services/auth.service';
 import { CitasService } from '../../../../core/services/citas.service';
 import { Cita } from '../../../../core/models/cita.model';
-
+import { AuthService } from '../../../../core/services/auth.service';
 import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-paciente-citas',
+  selector: 'app-citas-list',
   standalone: true,
-  imports: [CommonModule, TableModule],
-  templateUrl: './paciente-citas.component.html',
-  styleUrls: ['./paciente-citas.component.scss']
+  imports: [CommonModule, TableModule, RouterModule],
+  templateUrl: './citas-list.component.html',
+  styleUrls: ['./citas-list.component.scss']
 })
-export class PacienteCitasComponent implements OnInit {
+export class CitasListComponent implements OnInit {
+  citas: Cita[] = [];
   loading = true;
   error = '';
-  citas: Cita[] = [];
 
   constructor(
     private citasService: CitasService,
@@ -25,27 +25,25 @@ export class PacienteCitasComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.auth.getUser();
-    if (!user || user.rol !== 'PACIENTE') {
-      this.error = 'No se pudo identificar al paciente.';
+    if (!user || user.rol !== 'DOCTOR') {
+      this.error = 'No se pudo identificar al doctor.';
       this.loading = false;
       return;
     }
 
     this.citasService.getAll().subscribe({
       next: (all) => {
-        const uid = user.idPaciente || user.id;
-
-        if (!uid) {
-          this.error = 'Error en datos de sesión (ID no encontrado).';
+        const doctorId = user.idDoctor || user.id;
+        if (!doctorId) {
+          this.error = 'Error en los datos de sesión.';
           this.loading = false;
           return;
         }
-
-        this.citas = all.filter(c => c.pacienteId === uid);
+        this.citas = all.filter(c => c.doctorId === doctorId);
         this.loading = false;
       },
-      error: (e) => {
-        console.error(e);
+      error: (err) => {
+        console.error(err);
         this.error = 'No se pudieron cargar las citas.';
         this.loading = false;
       }
@@ -57,18 +55,12 @@ export class PacienteCitasComponent implements OnInit {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
     citaDate.setHours(0, 0, 0, 0);
-
-    if (citaDate < now) {
-      return 'Atendida / Pasada';
-    }
+    if (citaDate < now) return 'Atendida / Pasada';
     return 'Pendiente';
   }
 
   getStatusClass(fecha: string): string {
     const status = this.getStatus(fecha);
-    if (status.includes('Pendiente')) {
-      return 'status-pending';
-    }
-    return 'status-done';
+    return status.includes('Pendiente') ? 'status-pending' : 'status-done';
   }
 }

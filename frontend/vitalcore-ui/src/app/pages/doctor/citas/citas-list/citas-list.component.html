@@ -1,0 +1,29 @@
+<div class="citas-list" *ngIf="!loading">
+  <p-table [value]="citas" [paginator]="true" [rows]="10" [loading]="loading">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Paciente</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Motivo</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-cita>
+      <tr>
+        <td>{{ cita.pacienteId }}</td>
+        <td>{{ cita.fecha }}</td>
+        <td>{{ cita.hora }}</td>
+        <td>{{ cita.motivo }}</td>
+        <td [ngClass]="getStatusClass(cita.fecha)">{{ getStatus(cita.fecha) }}</td>
+        <td>
+          <button pButton label="Editar" [routerLink]="'/doctor/citas/' + cita.idCita"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<div *ngIf="error" class="error-message">{{ error }}</div>

@@ -6,11 +6,31 @@ import { Cita } from '../models/cita.model';
 
 @Injectable({ providedIn: 'root' })
 export class CitasService {
-    private base = environment.apiBaseUrl; // /api
+  private base = environment.apiBaseUrl;
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    getAll(): Observable<Cita[]> {
-        return this.http.get<Cita[]>(`${this.base}/cita`);
-    }
+  getAll(): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.base}/doctor/citas`);
+  }
+
+  create(payload: Cita): Observable<any> {
+    return this.http.post(`${this.base}/doctor/citas`, payload);
+  }
+
+  getById(id: number): Observable<Cita> {
+    return this.http.get<Cita>(`${this.base}/doctor/citas/${id}`);
+  }
+
+  update(id: number, payload: Cita): Observable<any> {
+    return this.http.put(`${this.base}/doctor/citas/${id}`, payload);
+  }
+
+  remove(id: number): Observable<any> {
+    return this.http.delete(`${this.base}/doctor/citas/${id}`);
+  }
+
+  getTiposCita(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.base}/tipos-cita`);
+  }
 }

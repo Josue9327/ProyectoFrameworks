@@ -1,8 +1,10 @@
-import { Tratamiento } from './tratamiento.model';
-
 export type Receta = {
-    idReceta: number;
-    medicamento: string;
-    dosis: string;
-    tratamiento: Tratamiento;
+  idReceta?: number;
+  pacienteId: number;
+  doctorId: number;
+  fecha: string;
+  medicamento: string;
+  dosis: string;
+  duracion: string;
+  tratamientoId?: number;
 };

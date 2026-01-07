@@ -1,12 +1,10 @@
-import { Doctor } from './doctor.model';
-import { Paciente } from './paciente.model';
-import { TipoCita } from './tipo-cita.model';
-
 export type Cita = {
-    idCita: number;
-    fecha: string;
-    hora: string;
-    paciente: Paciente;
-    doctor: Doctor;
-    tipoCita: TipoCita;
+  idCita?: number;
+  pacienteId: number;
+  doctorId: number;
+  tipoCitaId: number;
+  fecha: string;
+  hora: string;
+  motivo: string;
+  estado: 'pendiente' | 'realizada' | 'cancelada';
 };

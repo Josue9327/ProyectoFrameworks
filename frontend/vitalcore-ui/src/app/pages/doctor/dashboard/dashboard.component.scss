@@ -1,0 +1,30 @@
+.cardx { 
+  background: #fff;
+  border: 1px solid #e3eef7;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+}
+
+.mini-card {
+  background: #f6fbff;
+  border: 1px solid #e2eef7;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.mini-card h3 {
+  margin: 0 0 8px;
+  color: #0a3d61;
+  font-weight: 900;
+}
+
+.mini-card p {
+  font-size: 1.05rem;
+}
+
+.mini-card a {
+  display: block;
+  margin-top: 10px;
+}

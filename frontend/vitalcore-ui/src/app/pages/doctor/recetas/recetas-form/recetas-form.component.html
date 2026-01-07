@@ -1,0 +1,41 @@
+<form [formGroup]="recetaForm" (ngSubmit)="saveReceta()" *ngIf="!loading">
+  <div class="form-group">
+    <label for="pacienteId">Paciente</label>
+    <select formControlName="pacienteId" id="pacienteId" class="form-control" required>
+      <option *ngFor="let paciente of pacientes" [value]="paciente.idPaciente">{{ paciente.nombre }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="doctorId">Doctor</label>
+    <select formControlName="doctorId" id="doctorId" class="form-control" required>
+      <option *ngFor="let doctor of doctores" [value]="doctor.idDoctor">{{ doctor.nombre }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="medicamento">Medicamento</label>
+    <input formControlName="medicamento" type="text" id="medicamento" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="dosis">Dosis</label>
+    <input formControlName="dosis" type="text" id="dosis" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="duracion">Duración</label>
+    <input formControlName="duracion" type="text" id="duracion" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="tratamientoId">Tratamiento</label>
+    <select formControlName="tratamientoId" id="tratamientoId" class="form-control" required>
+      <option *ngFor="let tratamiento of tratamientos" [value]="tratamiento.idTratamiento">{{ tratamiento.diagnostico }}</option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="recetaForm.invalid" class="btn btn-primary">
+    {{ recetaId ? 'Actualizar' : 'Crear' }} Receta
+  </button>
+</form>

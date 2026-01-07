@@ -1,0 +1,25 @@
+<div class="recetas-list" *ngIf="!loading">
+  <p-table [value]="recetas" [paginator]="true" [rows]="10" [loading]="loading">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Medicamento</th>
+        <th>Dosis</th>
+        <th>Duración</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-receta>
+      <tr>
+        <td>{{ receta.medicamento }}</td>
+        <td>{{ receta.dosis }}</td>
+        <td>{{ receta.duracion }}</td>
+        <td>
+          <button pButton label="Ver" [routerLink]="'/doctor/recetas/' + receta.idReceta"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<div *ngIf="error" class="error-message">{{ error }}</div>

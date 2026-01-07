@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../../core/services/auth.service';
 import { RecetasService } from '../../../../core/services/recetas.service';
 import { Receta } from '../../../../core/models/receta.model';
-
+import { AuthService } from '../../../../core/services/auth.service';
+import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-paciente-recetas',
+  selector: 'app-recetas-list',
   standalone: true,
-  imports: [CommonModule, TableModule],
-  templateUrl: './paciente-recetas.component.html',
-  styleUrls: ['./paciente-recetas.component.scss']
+  imports: [CommonModule, TableModule, RouterModule],
+  templateUrl: './recetas-list.component.html',
+  styleUrls: ['./recetas-list.component.scss']
 })
-export class PacienteRecetasComponent implements OnInit {
+export class RecetasListComponent implements OnInit {
+  recetas: Receta[] = [];
   loading = true;
   error = '';
-  recetas: Receta[] = [];
 
   constructor(
     private recetasService: RecetasService,
@@ -25,27 +25,25 @@ export class PacienteRecetasComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.auth.getUser();
-    if (!user || user.rol !== 'PACIENTE') {
-      this.error = 'No se pudo identificar al paciente.';
+    if (!user || user.rol !== 'DOCTOR') {
+      this.error = 'No se pudo identificar al doctor.';
       this.loading = false;
       return;
     }
 
     this.recetasService.getAll().subscribe({
       next: (all) => {
-        const uid = user.idPaciente || user.id;
-
-        if (!uid) {
-          this.error = 'Error en datos de sesión (ID no encontrado).';
+        const doctorId = user.idDoctor || user.id;
+        if (!doctorId) {
+          this.error = 'Error en los datos de sesión.';
           this.loading = false;
           return;
         }
-
-        this.recetas = all.filter(r => r.pacienteId === uid);
+        this.recetas = all.filter(r => r.doctorId === doctorId);
         this.loading = false;
       },
-      error: (e) => {
-        console.error(e);
+      error: (err) => {
+        console.error(err);
         this.error = 'No se pudieron cargar las recetas.';
         this.loading = false;
       }
