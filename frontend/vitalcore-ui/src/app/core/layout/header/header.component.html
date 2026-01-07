@@ -2,7 +2,6 @@
   <div class="vc-header__inner">
     <a class="vc-brand" routerLink="/">
       <span class="vc-logo" aria-hidden="true">
-        <!-- logo circular con cruz (SVG simple) -->
         <svg viewBox="0 0 64 64" width="28" height="28">
           <defs>
             <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
@@ -19,16 +18,13 @@
     </a>
 
     <nav class="vc-nav">
-      <!-- Common Links -->
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
 
-      <!-- Guest Links -->
       <ng-container *ngIf="!isLoggedIn">
         <a routerLink="/login" routerLinkActive="active">Iniciar Sesión</a>
         <a routerLink="/registro" routerLinkActive="active" class="btn-reg">Registrarse</a>
       </ng-container>
 
-      <!-- Paciente Links -->
       <ng-container *ngIf="isLoggedIn && isPaciente">
         <a routerLink="/paciente/dashboard" routerLinkActive="active">Dashboard</a>
         <a routerLink="/paciente/citas" routerLinkActive="active">Mis Citas</a>
@@ -36,12 +32,10 @@
         <a routerLink="/paciente/perfil" routerLinkActive="active">Mi Perfil</a>
       </ng-container>
 
-      <!-- Doctor Links -->
       <ng-container *ngIf="isLoggedIn && isDoctor">
         <a routerLink="/doctor/pacientes" routerLinkActive="active">Pacientes</a>
       </ng-container>
 
-      <!-- User Menu / Logout -->
       <div class="user-menu" *ngIf="isLoggedIn">
         <span class="uname">{{ user?.nombre }}</span>
         <button (click)="logout()" class="btn-logout">Salir</button>

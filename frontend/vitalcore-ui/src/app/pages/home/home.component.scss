@@ -1,27 +1,12 @@
-/* Definición de variables locales para evitar errores de ruta */
-:root {
-  --vc-primary: #0A3D61;
-  --vc-secondary: #87BEE0;
-  --vc-mid: #3875A1;
-}
-
-/* Hero Section con el degradado corregido */
 .hero {
-  /* Aplicamos el degradado exacto de tu mixin: de secundario a primario */
-  background: linear-gradient(90deg, #87BEE0, #0A3D61);
-
-  min-height: 100vh;
+  background: #ffffff;
+  min-height: calc(100vh - 140px);
   display: flex;
   align-items: center;
-  color: #fff;
-  padding-top: 64px;
-  position: relative;
-  overflow: hidden;
 }
 
 .title {
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #0a3d61;
   font-weight: 800;
   letter-spacing: 0.4px;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
@@ -29,50 +14,50 @@
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.1rem;
+  color: #4b6b84;
+  font-size: 1.05rem;
   max-width: 520px;
   margin: 0;
 }
 
-/* Botones con los colores de tu marca */
 .btn-vital {
-  background: #fff;
+  background: #0a3d61;
   border: 0;
-  color: #0A3D61;
-  /* Usando --vc-primary */
+  color: #ffffff;
   font-weight: 800;
-  padding: 14px 24px;
+  padding: 12px 18px;
   border-radius: 14px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
-  transition: all 0.2s ease;
-  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(10, 61, 97, 0.25);
+  transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
 }
 
 .btn-vital:hover {
-  background: #f0f7ff;
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.05);
+}
+
+.btn-vital:active {
+  transform: translateY(1px);
+  box-shadow: 0 8px 18px rgba(10, 61, 97, 0.2);
 }
 
 .btn-outline-vital {
-  border: 2px solid #fff;
-  color: #fff;
+  border: 2px solid #0a3d61;
+  color: #0a3d61;
   font-weight: 800;
-  padding: 12px 22px;
+  padding: 10px 18px;
   border-radius: 14px;
   background: transparent;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  margin-left: 10px;
+  transition: background 0.12s ease, transform 0.12s ease;
 }
 
 .btn-outline-vital:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+  background: rgba(10, 61, 97, 0.06);
 }
 
-/* Tarjeta de Marca (Derecha) */
+.btn-outline-vital:active {
+  transform: translateY(1px);
+}
+
 .brand-card {
   width: min(420px, 100%);
   background: #f8fbfe;
@@ -80,7 +65,7 @@
   border-radius: 24px;
   padding: 28px;
   text-align: center;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
 }
 
 .logo-circle {
@@ -88,14 +73,14 @@
   height: 130px;
   margin: 0 auto 14px;
   border-radius: 999px;
-  /* Degradado radial usando tus colores mid y primary */
-  background: radial-gradient(circle at 30% 30%, #3875A1, #0A3D61);
+  background: radial-gradient(circle at 30% 30%, #3875a1, #0a3d61);
   display: grid;
   place-items: center;
   position: relative;
+
   box-shadow:
-    inset 0 0 0 6px rgba(255, 255, 255, 0.2),
-    0 14px 28px rgba(10, 61, 97, 0.2);
+    inset 0 0 0 6px rgba(255, 255, 255, 0.25),
+    0 14px 28px rgba(10, 61, 97, 0.16);
 }
 
 .logo-circle::before,
@@ -105,7 +90,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: rgba(255,255,255,0.92);
   border-radius: 6px;
 }
 
@@ -120,7 +105,7 @@
 }
 
 .brand-name {
-  color: #0A3D61;
+  color: #0a3d61;
   font-weight: 900;
   font-size: 1.6rem;
   margin-top: 6px;
@@ -132,30 +117,34 @@
   font-weight: 600;
 }
 
-/* Grid de Mini Cards Inferior */
 .mini {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 18px;
+}
+
+@media (max-width: 991px) {
+  .mini {
+    grid-template-columns: 1fr;
+  }
 }
 
 .mini-card {
   background: #f6fbff;
   border: 1px solid #e2eef7;
   border-radius: 16px;
-  padding: 16px;
-  transition: all 0.15s ease;
+  padding: 14px 16px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .mini-card:hover {
-  transform: translateY(-3px);
-  border-color: #87BEE0;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
 }
 
 .mini-title {
-  color: #0A3D61;
+  color: #0a3d61;
   font-weight: 900;
   font-size: 0.95rem;
   margin-bottom: 4px;
@@ -163,28 +152,6 @@
 
 .mini-text {
   color: #5c7d95;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   margin: 0;
-}
-
-/* Ajustes Responsive */
-@media (max-width: 991px) {
-  .hero {
-    padding: 100px 20px 60px;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .subtitle {
-    margin: 0 auto 20px;
-  }
-
-  .mini {
-    grid-template-columns: 1fr;
-    width: 100%;
-  }
-
-  .brand-card {
-    margin-top: 40px;
-  }
 }

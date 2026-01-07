@@ -18,7 +18,7 @@ export class AuthService {
   private base = environment.apiBaseUrl;
   private USER_KEY = 'vitalcore_user';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   register(payload: RegisterRequest) {
     const body = {
@@ -37,8 +37,6 @@ export class AuthService {
   }
 
   login(payload: { correo: string; password: string }) {
-    // Backend doesn't have auth/login. We simulate it by finding the user by email.
-    // 1. Try to find in Pacientes
     return new Observable(observer => {
       this.http.get<any[]>(`${this.base}/paciente`).subscribe({
         next: (pacientes) => {
@@ -49,7 +47,6 @@ export class AuthService {
             return;
           }
 
-          // 2. If not found, try Doctors
           this.http.get<any[]>(`${this.base}/doctor`).subscribe({
             next: (doctores) => {
               const foundD = doctores.find(d => d.correo === payload.correo);
@@ -68,7 +65,6 @@ export class AuthService {
     });
   }
 
-  // Session Management
   setUser(user: any) {
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
   }

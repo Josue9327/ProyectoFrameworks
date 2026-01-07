@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -8,28 +8,24 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  styleUrls: ['./header.component.scss'],
 })
 
-export class HeaderComponent {
-  constructor(private auth: AuthService, private router: Router) { }
+export class HeaderComponent implements OnInit {
+  isLoggedIn: boolean = false;
+  isPaciente: boolean = false;
+  isDoctor: boolean = false;
+  user: any = null;
 
-  get isLoggedIn(): boolean {
-    return this.auth.isLoggedIn();
-  }
+  constructor(private auth: AuthService, private router: Router) {}
 
-  get user(): any {
-    return this.auth.getUser();
-  }
-
-  get isPaciente(): boolean {
-    const u = this.user;
-    return u && u.rol === 'PACIENTE';
-  }
-
-  get isDoctor(): boolean {
-    const u = this.user;
-    return u && u.rol === 'DOCTOR';
+  ngOnInit(): void {
+    this.isLoggedIn = this.auth.isLoggedIn();
+    if (this.isLoggedIn) {
+      this.user = this.auth.getUser();
+      this.isPaciente = this.user?.rol === 'PACIENTE';
+      this.isDoctor = this.user?.rol === 'DOCTOR';
+    }
   }
 
   logout() {
