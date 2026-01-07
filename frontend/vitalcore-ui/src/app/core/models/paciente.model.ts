@@ -1,10 +1,11 @@
 export type Paciente = {
     idPaciente?: number;
     nombre: string;
-    appat: string; // Backend uses 'appat'
-    apmat: string; // Backend uses 'apmat'
+    appat: string; 
+    apmat: string;
     fechaNacimiento?: string;
     telefono?: string;
     direccion?: string;
-    correo?: string; // Field not present in backend entity
+    correo: string;
+    password: string;
 };

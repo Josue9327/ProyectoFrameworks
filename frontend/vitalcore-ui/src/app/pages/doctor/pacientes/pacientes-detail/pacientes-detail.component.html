@@ -1,29 +1,31 @@
 <div class="wrap">
-    <div class="head">
-        <a routerLink="/doctor/pacientes" class="btn btn-outline-vital">← Volver</a>
-        <a *ngIf="paciente?.idPaciente" [routerLink]="['/doctor/pacientes', paciente!.idPaciente, 'editar']"
-            class="btn btn-vital">
-            Editar
-        </a>
-    </div>
+  <div class="head">
+    <a routerLink="/doctor/pacientes" class="btn btn-outline-vital">← Volver</a>
+    <a *ngIf="paciente?.idPaciente" [routerLink]="['/doctor/pacientes', paciente!.idPaciente, 'editar']" class="btn btn-vital">
+      Editar
+    </a>
+  </div>
 
-    <div class="cardx" *ngIf="!loading && paciente; else state">
-        <!-- Adjusted fields to match local model (appat, apmat) -->
-        <h2 class="title">{{ paciente!.nombre }} {{ paciente!.appat }} {{ paciente!.apmat }}</h2>
-        <div class="grid">
-            <div class="item"><span>Correo</span><b>{{ paciente!.correo || '-' }}</b></div>
-            <div class="item"><span>Teléfono</span><b>{{ paciente!.telefono || '-' }}</b></div>
-            <div class="item"><span>ID</span><b>{{ paciente!.idPaciente || '-' }}</b></div>
-            <!-- Added extra fields available in model -->
-            <div class="item"><span>Dirección</span><b>{{ paciente!.direccion || '-' }}</b></div>
-            <div class="item"><span>Nacimiento</span><b>{{ paciente!.fechaNacimiento || '-' }}</b></div>
-        </div>
+  <div class="cardx" *ngIf="!loading && paciente; else state">
+    <h2 class="title">{{ paciente!.nombre }} {{ paciente!.appat }} {{ paciente!.apmat }}</h2>
+    <div class="grid">
+      <div class="item"><span>Correo</span><b>{{ paciente!.correo || '-' }}</b></div>
+      <div class="item"><span>Teléfono</span><b>{{ paciente!.telefono || '-' }}</b></div>
+      <div class="item"><span>ID</span><b>{{ paciente!.idPaciente || '-' }}</b></div>
+      <div class="item"><span>Dirección</span><b>{{ paciente!.direccion || '-' }}</b></div>
+      <div class="item"><span>Nacimiento</span><b>{{ paciente!.fechaNacimiento || '-' }}</b></div>
+      
+      <div class="item" *ngIf="editMode">
+        <span>Contraseña</span>
+        <input type="password" class="form-control" [(ngModel)]="paciente!.password" placeholder="••••" />
+      </div>
     </div>
+  </div>
 
-    <ng-template #state>
-        <div class="cardx">
-            <div *ngIf="loading">Cargando...</div>
-            <div class="err" *ngIf="!loading && error">{{ error }}</div>
-        </div>
-    </ng-template>
+  <ng-template #state>
+    <div class="cardx">
+      <div *ngIf="loading">Cargando...</div>
+      <div class="err" *ngIf="!loading && error">{{ error }}</div>
+    </div>
+  </ng-template>
 </div>

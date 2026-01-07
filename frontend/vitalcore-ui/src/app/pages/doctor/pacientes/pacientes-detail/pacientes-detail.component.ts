@@ -15,6 +15,7 @@ export class PacientesDetailComponent implements OnInit {
   loading = true;
   error = '';
   paciente: Paciente | null = null;
+  editMode: boolean = false;
 
   constructor(private route: ActivatedRoute, private pacientes: PacientesService) { }
 
@@ -27,8 +28,25 @@ export class PacientesDetailComponent implements OnInit {
     }
 
     this.pacientes.getById(id).subscribe({
-      next: (p) => { this.paciente = p; this.loading = false; },
-      error: (e) => { console.error(e); this.error = 'No se pudo cargar el paciente.'; this.loading = false; }
+      next: (p) => { 
+        this.paciente = p; 
+        this.loading = false; 
+      },
+      error: (e) => { 
+        console.error(e); 
+        this.error = 'No se pudo cargar el paciente.'; 
+        this.loading = false; 
+      }
     });
+  }
+
+  changePassword(newPassword: string) {
+    if (this.paciente) {
+      this.paciente.password = newPassword;
+    }
+  }
+
+  toggleEditMode() {
+    this.editMode = !this.editMode;
   }
 }
