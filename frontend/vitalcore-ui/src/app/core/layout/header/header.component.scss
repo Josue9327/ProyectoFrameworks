@@ -1,3 +1,4 @@
+/* Asegúrate de importar el mixin */
 @use "../../../../styles/mixins" as m;
 
 .vc-header {
@@ -20,7 +21,7 @@
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  color: #0b1220;
+  color: #fff; /* Cambié el color a blanco para mayor visibilidad */
 }
 
 .vc-logo {
@@ -29,7 +30,7 @@
   display: grid;
   place-items: center;
   border-radius: 999px;
-  background: rgba(255,255,255,0.35);
+  background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(6px);
 }
 
@@ -37,7 +38,7 @@
   font-weight: 800;
   font-size: 22px;
   letter-spacing: 0.2px;
-  color: #0b1220;
+  color: #fff; /* Cambié el color a blanco para mantener la coherencia */
 }
 
 .vc-nav {
@@ -47,13 +48,19 @@
   a {
     text-decoration: none;
     font-weight: 700;
-    color: rgba(11, 18, 32, 0.8);
+    color: rgba(255, 255, 255, 0.8); /* Aumenté el brillo para que sea más visible */
     padding: 8px 10px;
     border-radius: 12px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.35);
+      color: #0A3D61; /* Color cuando se pasa el mouse por encima */
+    }
 
     &.active {
-      background: rgba(255,255,255,0.35);
-      color: #0b1220;
+      background: rgba(255, 255, 255, 0.35);
+      color: #0A3D61; /* Color activo de los enlaces */
     }
   }
 }
