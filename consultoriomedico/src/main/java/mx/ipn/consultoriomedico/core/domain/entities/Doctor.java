@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
@@ -28,22 +29,32 @@ public class Doctor implements Serializable {
     @Column(name = "id_doctor", nullable = false)
     private Long idDoctor;
 
+    @NotEmpty(message = "El nombre no puede estar vacia")
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
 
+    @NotEmpty(message = "El apellido paterno no puede estar vacia")
     @Column(name = "appat", length = 50, nullable = false)
     private String appat;
 
+    @NotEmpty(message = "El apellido materno no puede estar vacia")
     @Column(name = "apmat", length = 50, nullable = false)
     private String apmat;
 
+    @NotEmpty(message = "La especialidad no puede estar vacia")
     @Column(name = "especialidad", length = 50, nullable = false)
     private String especialidad;
 
+    @NotEmpty(message = "El telefono no puede estar vacia")
     @Column(name = "telefono", length = 50, nullable = false)
     private String telefono;
 
-    @Column(name = "correo", length = 50, nullable = false)
+    @NotEmpty(message = "El correo no puede estar vacia")
+    @Column(name = "correo", length = 100, nullable = false)
     private String correo;
+
+    @NotEmpty(message = "La contraseña no puede estar vacia")
+    @Column(name = "password", length = 100, nullable = false)
+    private String password;
 
 }

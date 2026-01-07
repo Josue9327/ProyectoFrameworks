@@ -11,6 +11,8 @@ public interface PacienteService {
 
     public Paciente findById(Long id);
 
+    public Paciente findByCorreo(String correo);
+
     public Paciente save(Paciente evento);
 
     public void deleteById(Long id);

@@ -1,7 +1,9 @@
 package mx.ipn.consultoriomedico.features.paciente.controller;
 
 import java.io.ByteArrayInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -20,9 +22,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import mx.ipn.consultoriomedico.core.domain.entities.Doctor;
 import mx.ipn.consultoriomedico.core.domain.entities.Paciente;
 import mx.ipn.consultoriomedico.features.paciente.service.PacienteService;
 import mx.ipn.consultoriomedico.util.service.EmailService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/paciente")
@@ -48,14 +52,24 @@ public class PacienteController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Paciente create(@RequestBody Paciente paciente) {
-        return service.save(paciente);
+    public ResponseEntity<Map<String, Object>> create(@Valid @RequestBody Paciente paciente) {
+        Map<String, Object> respuesta = new HashMap<>();
+        try {
+            Paciente pacienteGuardado = service.save(paciente);
+            respuesta.put("mensaje", "Paciente creado exitosamente");
+            respuesta.put("paciente", pacienteGuardado);
+            return new ResponseEntity<>(respuesta, HttpStatus.CREATED);
+        } catch (Exception e) {
+            respuesta.put("mensaje", "Error al crear el paciente");
+            respuesta.put("error", e.getMessage());
+
+            return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Paciente update(@PathVariable Long id, @RequestBody Paciente paciente) {
+    public Paciente update(@PathVariable Long id, @Valid @RequestBody Paciente paciente) {
         paciente.setIdPaciente(id);
         return service.save(paciente);
     }

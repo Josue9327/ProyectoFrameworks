@@ -27,6 +27,7 @@ import jakarta.transaction.Transactional;
 import mx.ipn.consultoriomedico.core.domain.entities.Paciente;
 import mx.ipn.consultoriomedico.features.paciente.repository.PacienteRepository;
 import mx.ipn.consultoriomedico.features.paciente.service.PacienteService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 @Transactional
@@ -34,6 +35,9 @@ public class PacienteServicioImpl implements PacienteService {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<Paciente> findAll() {
@@ -46,7 +50,13 @@ public class PacienteServicioImpl implements PacienteService {
     }
 
     @Override
+    public Paciente findByCorreo(String correo) {
+        return pacienteRepository.findByCorreo(correo).orElse(null);
+    }
+
+    @Override
     public Paciente save(Paciente paciente) {
+        paciente.setPassword(passwordEncoder.encode(paciente.getPassword()));
         return pacienteRepository.save(paciente);
     }
 
@@ -84,7 +94,7 @@ public class PacienteServicioImpl implements PacienteService {
             Font textFont = FontFactory.getFont(FontFactory.HELVETICA, 10);
             PdfPTable tabla = new PdfPTable(5);
             tabla.setWidthPercentage(100);
-            tabla.setWidths(new float[]{1f, 3f, 2f, 2f, 3f});
+            tabla.setWidths(new float[] { 1f, 3f, 2f, 2f, 3f });
             tabla.setSpacingBefore(15);
 
             // ======== ENCABEZADOS ========

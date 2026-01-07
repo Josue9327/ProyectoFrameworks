@@ -11,6 +11,8 @@ public interface DoctorService {
 
     Doctor findById(Long id);
 
+    Doctor findByCorreo(String correo);
+
     Doctor save(Doctor doctor);
 
     void deleteById(Long id);
