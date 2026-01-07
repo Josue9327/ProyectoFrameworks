@@ -12,6 +12,9 @@ export type RegisterRequest = {
   apellidoMaterno: string;
   correo: string;
   password: string;
+  telefono: string;
+  direccion?: string;
+  especialidad?: string;
 };
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +30,10 @@ export class AuthService {
       appat: payload.apellidoPaterno,
       apmat: payload.apellidoMaterno,
       correo: payload.correo,
-      password: payload.password
+      password: payload.password,
+      telefono: payload.telefono,
+      direccion: payload.direccion,
+      especialidad: payload.especialidad
     };
 
     const url =
