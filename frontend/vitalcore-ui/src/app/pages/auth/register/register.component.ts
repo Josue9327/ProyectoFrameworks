@@ -1,59 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { AuthService, RoleType } from '../../../core/services/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
-  styleUrl: '../login/login.component.scss'
+  styleUrls: ['./register.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule]
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
+  form: FormGroup;
   loading = false;
   error = '';
-
-  roles: { label: string; value: RoleType }[] = [
-    { label: 'Paciente', value: 'PACIENTE' },
-    { label: 'Doctor', value: 'DOCTOR' }
+  roles = [
+    { value: 'PACIENTE', label: 'Paciente' },
+    { value: 'DOCTOR', label: 'Doctor' }
   ];
-
-  form!: FormGroup; // 👈 se declara, no se inicializa aquí
 
   constructor(
     private fb: FormBuilder,
-    private auth: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {
-    // 👇 aquí YA existe fb
     this.form = this.fb.group({
-      rol: ['PACIENTE' as RoleType, [Validators.required]],
-      nombre: ['', [Validators.required, Validators.minLength(2)]],
-      apellidos: ['', [Validators.required, Validators.minLength(2)]],
+      rol: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellidoPaterno: ['', Validators.required],
+      apellidoMaterno: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(4)]]
+      password: ['', Validators.required]
     });
   }
 
-  submit() {
-    this.error = '';
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+  ngOnInit(): void {}
+
+  submit(): void {
+    if (this.form.invalid) return;
+
+    const { rol, nombre, apellidoPaterno, apellidoMaterno, correo, password } = this.form.value;
+    const registerPayload = {
+      rol,
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      correo,
+      password
+    };
 
     this.loading = true;
-    this.auth.register(this.form.getRawValue() as any).subscribe({
+    this.authService.register(registerPayload).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigateByUrl('/login');
       },
-      error: (e) => {
+      error: (err) => {
         this.loading = false;
-        this.error = 'No se pudo registrar. Revisa si el backend exige campos extra.';
-        console.error(e);
+        this.error = 'Error en el registro';
       }
     });
   }

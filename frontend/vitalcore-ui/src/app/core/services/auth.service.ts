@@ -8,7 +8,8 @@ export type RoleType = 'PACIENTE' | 'DOCTOR';
 export type RegisterRequest = {
   rol: RoleType;
   nombre: string;
-  apellidos: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string;
   correo: string;
   password: string;
 };
@@ -23,7 +24,8 @@ export class AuthService {
   register(payload: RegisterRequest) {
     const body = {
       nombre: payload.nombre,
-      apPat: payload.apellidos,
+      apPat: payload.apellidoPaterno,
+      apMat: payload.apellidoMaterno,
       correo: payload.correo,
       password: payload.password
     };
