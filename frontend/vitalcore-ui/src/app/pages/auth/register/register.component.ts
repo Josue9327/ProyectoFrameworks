@@ -30,23 +30,43 @@ export class RegisterComponent implements OnInit {
       apellidoPaterno: ['', Validators.required],
       apellidoMaterno: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      telefono: ['', Validators.required],
+      direccion: [''],
+      especialidad: ['']
     });
   }
 
   ngOnInit(): void {}
+  onRoleChange(event: any): void {
+    const role = event.target.value;
+    if (role === 'PACIENTE') {
+      this.form.get('direccion')?.setValidators([Validators.required]);
+      this.form.get('telefono')?.setValidators([Validators.required]);
+      this.form.get('especialidad')?.clearValidators();
+    } else if (role === 'DOCTOR') {
+      this.form.get('especialidad')?.setValidators([Validators.required]);
+      this.form.get('telefono')?.setValidators([Validators.required]);
+      this.form.get('direccion')?.clearValidators();
+    }
+    this.form.updateValueAndValidity();
+  }
 
   submit(): void {
     if (this.form.invalid) return;
 
-    const { rol, nombre, apellidoPaterno, apellidoMaterno, correo, password } = this.form.value;
+    const { rol, nombre, apellidoPaterno, apellidoMaterno, correo, password, telefono, direccion, especialidad } = this.form.value;
+
     const registerPayload = {
       rol,
       nombre,
       apellidoPaterno,
       apellidoMaterno,
       correo,
-      password
+      password,
+      telefono,
+      direccion: rol === 'PACIENTE' ? direccion : null,
+      especialidad: rol === 'DOCTOR' ? especialidad : null
     };
 
     this.loading = true;

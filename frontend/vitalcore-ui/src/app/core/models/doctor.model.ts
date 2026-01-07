@@ -6,4 +6,5 @@ export type Doctor = {
     especialidad: string;
     telefono: string;
     correo: string;
+    password: string;
 };
