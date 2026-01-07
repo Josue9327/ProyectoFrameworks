@@ -17,6 +17,7 @@ export class CitasListComponent implements OnInit {
   citas: Cita[] = [];
   loading = true;
   error = '';
+  doctorId: number | null = null;
 
   constructor(
     private citasService: CitasService,
@@ -31,15 +32,17 @@ export class CitasListComponent implements OnInit {
       return;
     }
 
+    this.doctorId = Number(user.idDoctor || user.id);
+    if (!this.doctorId) {
+      this.error = 'Error en los datos de sesión.';
+      this.loading = false;
+      return;
+    }
+
     this.citasService.getAll().subscribe({
       next: (all) => {
-        const doctorId = user.idDoctor || user.id;
-        if (!doctorId) {
-          this.error = 'Error en los datos de sesión.';
-          this.loading = false;
-          return;
-        }
-        this.citas = all.filter(c => c.doctorId === doctorId);
+        // Filtramos las citas basadas en el doctorId
+        this.citas = all.filter(c => c.doctorId === this.doctorId);
         this.loading = false;
       },
       error: (err) => {

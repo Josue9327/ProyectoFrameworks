@@ -1,18 +1,146 @@
 .citas-list {
-  margin-top: 30px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.status-pending {
-  color: red;
+.no-citas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+  max-height: 20%;
+
+  .message-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .message-icon {
+      margin-right: 10px;
+      font-size: 24px;
+      color: #0a3d61;
+    }
+
+    .message {
+      font-size: 22px;
+      color: #333;
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+
+  .btn-create {
+    background-color: #0A3D61;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 18px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .pi {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      background-color: #54777e;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background-color: #0A3D61;
+      transform: scale(1);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
-.status-done {
-  color: green;
+.p-table {
+  width: 100%;
+  margin-top: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  thead {
+    background-color: #f4f4f4;
+    th {
+      font-weight: 600;
+      font-size: 14px;
+      color: #333;
+    }
+  }
+
+  tbody {
+    td {
+      font-size: 14px;
+      color: #777;
+      padding: 12px 15px;
+    }
+
+    td button {
+      background-color: #0A3D61;
+      color: #fff;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: #54777e;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background-color: #0A3D61;
+        transform: scale(1);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
 }
 
 .error-message {
-  color: red;
-  font-size: 1.2rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
   margin-top: 20px;
+  text-align: center;
+
+  p {
+    font-size: 16px;
+  }
 }

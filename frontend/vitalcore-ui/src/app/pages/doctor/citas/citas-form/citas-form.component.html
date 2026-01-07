@@ -1,41 +1,48 @@
 <form [formGroup]="citaForm" (ngSubmit)="saveCita()" *ngIf="!loading">
-  <div class="form-group">
-    <label for="pacienteId">Paciente</label>
-    <select formControlName="pacienteId" id="pacienteId" class="form-control" required>
-      <option *ngFor="let paciente of pacientes" [value]="paciente.idPaciente">{{ paciente.nombre }}</option>
-    </select>
-  </div>
+  <div class="citas-form-wrap">
+    <div class="citas-form-card">
+      <h2>{{ citaId ? 'Actualizar' : 'Crear' }} Cita</h2>
+      <div class="muted">Llena los detalles para crear una nueva cita.</div>
 
-  <div class="form-group">
-    <label for="doctorId">Doctor</label>
-    <select formControlName="doctorId" id="doctorId" class="form-control" required>
-      <option *ngFor="let doctor of doctores" [value]="doctor.idDoctor">{{ doctor.nombre }}</option>
-    </select>
-  </div>
+      <div class="form-group">
+        <label for="pacienteId" class="lbl">Paciente</label>
+        <select formControlName="pacienteId" id="pacienteId" class="form-select" required>
+          <option *ngFor="let paciente of pacientes" [value]="paciente.idPaciente">{{ paciente.nombre }}</option>
+        </select>
+      </div>
 
-  <div class="form-group">
-    <label for="tipoCitaId">Tipo de Cita</label>
-    <select formControlName="tipoCitaId" id="tipoCitaId" class="form-control" required>
-      <option *ngFor="let tipo of tiposCita" [value]="tipo.idTipoCita">{{ tipo.nombre }}</option>
-    </select>
-  </div>
+      <div class="form-group">
+        <label for="doctorId" class="lbl">Doctor</label>
+        <select formControlName="doctorId" id="doctorId" class="form-select" required>
+          <option *ngFor="let doctor of doctores" [value]="doctor.idDoctor">{{ doctor.nombre }}</option>
+        </select>
+      </div>
 
-  <div class="form-group">
-    <label for="fecha">Fecha</label>
-    <input formControlName="fecha" type="date" id="fecha" class="form-control" required>
-  </div>
+      <div class="form-group">
+        <label for="tipoCitaId" class="lbl">Tipo de Cita</label>
+        <select formControlName="tipoCitaId" id="tipoCitaId" class="form-select" required>
+          <option *ngFor="let tipo of tiposCita" [value]="tipo.idTipoCita">{{ tipo.nombre }}</option>
+        </select>
+      </div>
 
-  <div class="form-group">
-    <label for="hora">Hora</label>
-    <input formControlName="hora" type="time" id="hora" class="form-control" required>
-  </div>
+      <div class="form-group">
+        <label for="fecha" class="lbl">Fecha</label>
+        <input formControlName="fecha" type="date" id="fecha" class="form-control" required>
+      </div>
 
-  <div class="form-group">
-    <label for="motivo">Motivo</label>
-    <input formControlName="motivo" type="text" id="motivo" class="form-control" required>
-  </div>
+      <div class="form-group">
+        <label for="hora" class="lbl">Hora</label>
+        <input formControlName="hora" type="time" id="hora" class="form-control" required>
+      </div>
 
-  <button type="submit" [disabled]="citaForm.invalid" class="btn btn-primary">
-    {{ citaId ? 'Actualizar' : 'Crear' }} Cita
-  </button>
+      <div class="form-group">
+        <label for="motivo" class="lbl">Motivo</label>
+        <input formControlName="motivo" type="text" id="motivo" class="form-control" required>
+      </div>
+
+      <button type="submit" [disabled]="citaForm.invalid" class="btn-vital">
+        {{ citaId ? 'Actualizar' : 'Crear' }} Cita
+      </button>
+    </div>
+  </div>
 </form>

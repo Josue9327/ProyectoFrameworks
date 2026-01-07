@@ -18,7 +18,7 @@ import { DoctoresService } from '../../../../core/services/doctores.service';
 export class CitasFormComponent implements OnInit {
   citaForm: FormGroup;
   loading = false;
-  tiposCita: any[] = [];  // Definir la propiedad tiposCita
+  tiposCita: any[] = [];
   pacientes: any[] = [];
   doctores: any[] = [];
   citaId?: number;
@@ -26,9 +26,9 @@ export class CitasFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private citasService: CitasService,
-    private tiposCitaService: TipoCitaService,  // Inyectamos el servicio de tipos de cita
+    private tiposCitaService: TipoCitaService,
     private pacientesService: PacientesService,
-    private doctoresService: DoctoresService,  // Añadimos el servicio de doctores
+    private doctoresService: DoctoresService,
     private auth: AuthService
   ) {
     this.citaForm = this.fb.group({
@@ -74,14 +74,26 @@ export class CitasFormComponent implements OnInit {
   }
 
   saveCita() {
-    if (this.citaForm.invalid) return;
+  if (this.citaForm.invalid) return;
 
-    const citaData: Cita = this.citaForm.value;
-    this.citasService.create(citaData).subscribe({
-      next: () => {},
-      error: (err) => {
-        console.error('Error guardando la cita', err);
-      }
-    });
+  const citaData: Cita = this.citaForm.value;
+
+  if (citaData.fecha) {
+    citaData.fecha = new Date(citaData.fecha).toISOString().split('T')[0];
   }
+  if (citaData.hora) {
+    citaData.hora = citaData.hora + ":00";
+  }
+
+  console.log('Datos de la cita:', citaData);
+
+  this.citasService.create(citaData).subscribe({
+    next: () => {
+      console.log('Cita guardada con éxito');
+    },
+    error: (err) => {
+      console.error('Error guardando la cita', err);
+    }
+  });
+}
 }

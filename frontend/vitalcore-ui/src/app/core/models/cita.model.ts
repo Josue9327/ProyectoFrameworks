@@ -1,4 +1,5 @@
 export type Cita = {
+  doctor?: any;
   idCita?: number;
   pacienteId: number;
   doctorId: number;
