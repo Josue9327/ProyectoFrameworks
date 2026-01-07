@@ -24,7 +24,7 @@ export class PacienteDashboardComponent implements OnInit {
   ngOnInit(): void {
     const user = this.auth.getUser();
     if (user && user.nombre) {
-      this.paciente.nombre = `${user.nombre} ${user.apPat || ''} ${user.apMat || ''}`.trim();
+      this.paciente.nombre = `${user.nombre} ${user.appat || ''} ${user.apmat || ''}`.trim();
     }
   }
 }

@@ -49,7 +49,7 @@ export class PacientePerfilComponent implements OnInit {
       return;
     }
 
-    const uid = user.idPaciente || user.id;
+    const uid = Number(user.idPaciente || user.id);
 
     if (uid) {
       this.loadData(uid);
