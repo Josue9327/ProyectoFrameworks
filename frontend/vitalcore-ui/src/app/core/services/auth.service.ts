@@ -24,8 +24,8 @@ export class AuthService {
   register(payload: RegisterRequest) {
     const body = {
       nombre: payload.nombre,
-      apPat: payload.apellidoPaterno,
-      apMat: payload.apellidoMaterno,
+      appat: payload.apellidoPaterno,
+      apmat: payload.apellidoMaterno,
       correo: payload.correo,
       password: payload.password
     };
