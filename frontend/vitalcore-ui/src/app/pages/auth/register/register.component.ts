@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.form = this.fb.group({
       rol: ['', Validators.required],
@@ -33,11 +35,13 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required],
       telefono: ['', Validators.required],
       direccion: [''],
-      especialidad: ['']
+      especialidad: [''],
+      fechaNacimiento: ['']
     });
   }
 
   ngOnInit(): void {}
+
   onRoleChange(event: any): void {
     const role = event.target.value;
     if (role === 'PACIENTE') {
@@ -55,7 +59,7 @@ export class RegisterComponent implements OnInit {
   submit(): void {
     if (this.form.invalid) return;
 
-    const { rol, nombre, apellidoPaterno, apellidoMaterno, correo, password, telefono, direccion, especialidad } = this.form.value;
+    const { rol, nombre, apellidoPaterno, apellidoMaterno, correo, password, telefono, direccion, especialidad, fechaNacimiento } = this.form.value;
 
     const registerPayload = {
       rol,
@@ -66,13 +70,15 @@ export class RegisterComponent implements OnInit {
       password,
       telefono,
       direccion: rol === 'PACIENTE' ? direccion : null,
-      especialidad: rol === 'DOCTOR' ? especialidad : null
+      especialidad: rol === 'DOCTOR' ? especialidad : null,
+      fechaNacimiento: rol === 'PACIENTE' ? fechaNacimiento : null
     };
 
     this.loading = true;
     this.authService.register(registerPayload).subscribe({
       next: () => {
         this.loading = false;
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         this.loading = false;
