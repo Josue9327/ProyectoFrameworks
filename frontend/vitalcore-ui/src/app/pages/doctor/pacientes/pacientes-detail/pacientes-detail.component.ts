@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PacientesService } from '../../../../core/services/pacientes.service';
 import { Paciente } from '../../../../core/models/paciente.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pacientes-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './pacientes-detail.component.html',
   styleUrl: './pacientes-detail.component.scss'
 })
