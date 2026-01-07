@@ -15,6 +15,7 @@ export type RegisterRequest = {
   telefono: string;
   direccion?: string;
   especialidad?: string;
+  fechaNacimiento?: string;
 };
 
 @Injectable({ providedIn: 'root' })
@@ -33,7 +34,8 @@ export class AuthService {
       password: payload.password,
       telefono: payload.telefono,
       direccion: payload.direccion,
-      especialidad: payload.especialidad
+      especialidad: payload.especialidad,
+      fechaNacimiento: payload.rol === 'PACIENTE' ? payload.fechaNacimiento : null
     };
 
     const url =

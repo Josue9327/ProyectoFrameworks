@@ -34,6 +34,7 @@
         <label class="lbl mt-3">Teléfono</label>
         <input class="form-control input" formControlName="telefono" placeholder="5555555555" />
       </div>
+
       <div *ngIf="form.get('rol')?.value === 'DOCTOR'">
         <label class="lbl mt-3">Especialidad</label>
         <input class="form-control input" formControlName="especialidad" placeholder="Especialidad" />
