@@ -15,7 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, TableModule, ButtonModule, InputTextModule],
   templateUrl: './pacientes-list.component.html',
-  styleUrl: './pacientes-list.component.scss'
+  styleUrls: ['./pacientes-list.component.scss']
 })
 export class PacientesListComponent implements OnInit {
   loading = true;
@@ -29,6 +29,11 @@ export class PacientesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+  }
+
+  generatePDF() {
+    const pdfUrl = 'https://proyectoframeworks.onrender.com/api/paciente/reporte/pdf';
+    window.location.href = pdfUrl; // Redirige al navegador para descargar el PDF
   }
 
   load() {
