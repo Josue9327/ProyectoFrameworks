@@ -36,8 +36,7 @@ export class CitasFormComponent implements OnInit {
       doctorId: [null, Validators.required],
       tipoCitaId: [null, Validators.required],
       fecha: ['', Validators.required],
-      hora: ['', Validators.required],
-      motivo: ['', Validators.required]
+      hora: ['', Validators.required]
     });
   }
 

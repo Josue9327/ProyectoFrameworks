@@ -18,11 +18,13 @@ export class CitasListComponent implements OnInit {
   loading = true;
   error = '';
   doctorId: number | null = null;
+  citaIdToDelete: number | null = null;
+  showModal: boolean = false;
 
   constructor(
     private citasService: CitasService,
     private auth: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     const user = this.auth.getUser();
@@ -41,8 +43,7 @@ export class CitasListComponent implements OnInit {
 
     this.citasService.getAll().subscribe({
       next: (all) => {
-        // Filtramos las citas basadas en el doctorId
-        this.citas = all.filter(c => c.doctorId === this.doctorId);
+        this.citas = all.filter(cita => cita.doctor.idDoctor === this.doctorId);
         this.loading = false;
       },
       error: (err) => {
@@ -51,6 +52,11 @@ export class CitasListComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  combineDateAndTime(fecha: string, hora: string): Date {
+    const dateTimeString = `${fecha}T${hora}`;
+    return new Date(dateTimeString);
   }
 
   getStatus(fecha: string): string {
@@ -65,5 +71,29 @@ export class CitasListComponent implements OnInit {
   getStatusClass(fecha: string): string {
     const status = this.getStatus(fecha);
     return status.includes('Pendiente') ? 'status-pending' : 'status-done';
+  }
+
+  confirmDelete(citaId: number): void {
+    this.citaIdToDelete = citaId;
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+  }
+
+  deleteCitaConfirmed(): void {
+    if (this.citaIdToDelete !== null) {
+      this.citasService.remove(this.citaIdToDelete).subscribe({
+        next: () => {
+          this.citas = this.citas.filter(cita => cita.idCita !== this.citaIdToDelete);
+          this.showModal = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.error = 'No se pudo eliminar la cita.';
+        }
+      });
+    }
   }
 }

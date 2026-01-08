@@ -6,6 +6,5 @@ export type Cita = {
   tipoCitaId: number;
   fecha: string;
   hora: string;
-  motivo: string;
   estado: 'pendiente' | 'realizada' | 'cancelada';
 };
