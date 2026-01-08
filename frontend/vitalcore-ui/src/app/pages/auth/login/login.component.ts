@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { LoginResponse } from '../../../core/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule]
 })
-
 export class LoginComponent {
   loading = false;
   error = '';
@@ -45,12 +44,16 @@ export class LoginComponent {
     }
 
     this.loading = true;
-    this.auth.login(this.form.getRawValue() as any).subscribe({
-      next: (response) => {
+    this.auth.login(this.form.getRawValue()).subscribe({
+      next: (response: LoginResponse) => {
         this.loading = false;
-        // Save session
         this.auth.setUser(response);
-        this.router.navigateByUrl('/');
+
+        if (response.rol === 'PACIENTE') {
+          this.router.navigateByUrl('/paciente/dashboard');
+        } else if (response.rol === 'DOCTOR') {
+          this.router.navigateByUrl('/doctor/dashboard');
+        }
       },
       error: () => {
         this.loading = false;

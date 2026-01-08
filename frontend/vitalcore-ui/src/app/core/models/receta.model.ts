@@ -1,4 +1,5 @@
 export type Receta = {
+  doctor?: any;
   idReceta?: number;
   pacienteId: number;
   doctorId: number;

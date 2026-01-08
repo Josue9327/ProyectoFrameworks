@@ -1,14 +1,23 @@
-<div class="cardx">
-  <div class="grid">
-    <div class="mini-card">
-      <h3>Citas Programadas</h3>
-      <p>{{ citasCount }} citas</p>
-      <a routerLink="/doctor/citas" class="btn btn-vital">Ver citas</a>
-    </div>
-    <div class="mini-card">
-      <h3>Recetas Emitidas</h3>
-      <p>{{ recetasCount }} recetas</p>
-      <a routerLink="/doctor/recetas" class="btn btn-vital">Ver recetas</a>
+<div class="home-container">
+  <div class="welcome">
+    <h1><i class="fas fa-smile"></i> ¡Bienvenido!</h1>
+    <p>¿Cómo te gustaría comenzar hoy?</p>
+  </div>
+
+  <div class="cardx">
+    <div class="grid">
+      <div class="mini-card">
+        <h3>Citas Programadas</h3>
+        <p>{{ citasCount }} citas</p>
+        <a routerLink="/doctor/citas" class="btn btn-vital">Ver citas</a>
+      </div>
+      <div class="mini-card">
+        <h3>Recetas Emitidas</h3>
+        <p>{{ recetasCount }} recetas</p>
+        <a routerLink="/doctor/recetas" class="btn btn-vital">Ver recetas</a>
+      </div>
     </div>
   </div>
+
+  <div *ngIf="error" class="error-message">{{ error }}</div>
 </div>

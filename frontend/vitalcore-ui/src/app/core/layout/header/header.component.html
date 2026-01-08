@@ -1,6 +1,6 @@
 <header class="vc-header">
   <div class="vc-header__inner">
-    <a class="vc-brand" routerLink="/">
+    <a class="vc-brand" (click)="goToDashboard()" [routerLinkActive]="['active']">
       <span class="vc-logo" aria-hidden="true">
         <svg viewBox="0 0 64 64" width="28" height="28">
           <defs>
@@ -18,7 +18,7 @@
     </a>
 
     <nav class="vc-nav">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+      <a (click)="goToInicio()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
 
       <ng-container *ngIf="!isLoggedIn">
         <a routerLink="/login" routerLinkActive="active">Iniciar Sesión</a>

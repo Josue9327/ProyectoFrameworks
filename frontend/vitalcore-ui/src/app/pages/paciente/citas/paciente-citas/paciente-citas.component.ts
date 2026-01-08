@@ -33,7 +33,7 @@ export class PacienteCitasComponent implements OnInit {
 
     this.citasService.getAll().subscribe({
       next: (all) => {
-        const uid = user.idPaciente || user.id;
+        const uid = Number(user.idPaciente || user.id);
 
         if (!uid) {
           this.error = 'Error en datos de sesión (ID no encontrado).';

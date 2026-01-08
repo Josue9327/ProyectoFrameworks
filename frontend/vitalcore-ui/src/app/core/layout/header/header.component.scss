@@ -5,7 +5,7 @@
   height: 74px;
   display: flex;
   align-items: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .vc-header__inner {
@@ -21,6 +21,7 @@
   gap: 12px;
   text-decoration: none;
   color: #fff;
+  cursor: pointer;
 }
 
 .vc-logo {
@@ -61,5 +62,67 @@
       background: rgba(255, 255, 255, 0.35);
       color: #0A3D61;
     }
+  }
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.uname {
+  font-weight: 600;
+  color: #fff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.uname svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+.btn-logout {
+  background-color: #0A3D61;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #54777e;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background-color: #0A3D61;
+    transform: scale(0.98);
+  }
+}
+
+.vc-nav a {
+  text-decoration: none;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 8px 10px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.35);
+    color: #0A3D61;
+  }
+
+  &.active {
+    background: rgba(255, 255, 255, 0.35);
+    color: #0A3D61;
   }
 }
