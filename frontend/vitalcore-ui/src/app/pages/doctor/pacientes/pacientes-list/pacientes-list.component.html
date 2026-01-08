@@ -1,13 +1,18 @@
 <div class="page" style="padding: 20px 0 40px;">
-  <div class="top" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px auto; width: min(1100px, calc(100% - 40px));">
-    <div>
-      <h2 class="title" style="color: #0a3d61; font-weight: 900; text-align: left; font-size: 36px;">Pacientes</h2>
-      <p class="muted" style="color: #5c7d95; margin: 6px 0 0; text-align: center;">Gestión y consulta de pacientes registrados.</p>
-    </div>
-
-    <a *ngIf="filtered.length > 0" routerLink="/doctor/pacientes/nuevo" class="btn btn-vital" style="display: inline-block; background-color: #0a3d61; color: #fff; padding: 10px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease, transform 0.2s ease; text-transform: uppercase;">
-      + Nuevo paciente
-    </a>
+  <div *ngIf="filtered.length > 0" style="display: grid; grid-template-columns: repeat(2, auto); max-width: 85%; margin: auto; gap: 60%;">
+    <button class="btn btn-vital" style="display: inline-block; background-color: #0a3d61; color: #fff; padding: 10px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease, transform 0.2s ease; text-transform: uppercase;" (click)="generatePDF()">
+      Generar Reporte PDF
+    </button>
+    <button pButton [routerLink]="'/doctor/pacientes/nuevo'"
+      style="background-color: #0A3D61; color: #fff; padding: 8px 16px; font-weight: 600; text-transform: uppercase; border: none; border-radius: 30px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;">
+      <i class="pi pi-plus" style="margin-right: 8px;"></i> Nuevo paciente
+    </button>
+  </div>
+  <div class="title" style="color: #0a3d61; font-weight: 900; text-align: center; font-size: 36px;">
+    <i class="pi pi-calendar" style="margin-right: 10px; font-size: 40px;"></i> Pacientes
+  </div>
+  <div class="muted" style="color: #5c7d95; margin: 6px 0 0; text-align: center;">
+    Gestión y consulta de pacientes registrados.
   </div>
 
   <div *ngIf="filtered.length === 0" class="no-pacientes" style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 30px; max-height: 20%;">
@@ -67,8 +72,4 @@
   </div>
 </div>
 
-<div style="margin-top: 20px; text-align: center;">
-      <button class="btn btn-vital" style="display: inline-block; background-color: #0a3d61; color: #fff; padding: 10px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease, transform 0.2s ease; text-transform: uppercase;" (click)="generatePDF()">
-        Generar Reporte PDF
-      </button>
-    </div>
+<div *ngIf="filtered.length > 0" style="margin-top: 20px; text-align: center;"></div>
