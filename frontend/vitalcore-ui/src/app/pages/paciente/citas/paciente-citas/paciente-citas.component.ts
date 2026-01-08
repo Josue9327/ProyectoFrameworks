@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../../core/services/auth.service';
 import { CitasService } from '../../../../core/services/citas.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { Cita } from '../../../../core/models/cita.model';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-paciente-citas',
-  standalone: true,
-  imports: [CommonModule, TableModule],
   templateUrl: './paciente-citas.component.html',
-  styleUrls: ['./paciente-citas.component.scss']
+  styleUrls: ['./paciente-citas.component.scss'],
+    imports: [ReactiveFormsModule, CommonModule, RouterModule, TableModule ]
 })
 export class PacienteCitasComponent implements OnInit {
   loading = true;
@@ -41,11 +41,12 @@ export class PacienteCitasComponent implements OnInit {
           return;
         }
 
-        this.citas = all.filter(c => c.pacienteId === uid);
+        // Filtrar las citas por el idPaciente
+        this.citas = all.filter(cita => cita.paciente.idPaciente === uid);
         this.loading = false;
       },
-      error: (e) => {
-        console.error(e);
+      error: (err) => {
+        console.error(err);
         this.error = 'No se pudieron cargar las citas.';
         this.loading = false;
       }

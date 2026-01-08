@@ -26,14 +26,16 @@
       </ng-container>
 
       <ng-container *ngIf="isLoggedIn && isPaciente">
-        <a routerLink="/paciente/dashboard" routerLinkActive="active">Dashboard</a>
-        <a routerLink="/paciente/citas" routerLinkActive="active">Mis Citas</a>
+        <a routerLink="/paciente/citas" routerLinkActive="active">Citas</a>
         <a routerLink="/paciente/recetas" routerLinkActive="active">Recetas</a>
         <a routerLink="/paciente/perfil" routerLinkActive="active">Mi Perfil</a>
       </ng-container>
 
       <ng-container *ngIf="isLoggedIn && isDoctor">
         <a routerLink="/doctor/pacientes" routerLinkActive="active">Pacientes</a>
+        <a routerLink="/doctor/citas" routerLinkActive="active">Citas</a>
+        <a routerLink="/doctor/recetas" routerLinkActive="active">Recetas</a>
+        <a routerLink="/doctor/tratamientos" routerLinkActive="active">Tratamientos</a>
       </ng-container>
 
       <div class="user-menu" *ngIf="isLoggedIn">

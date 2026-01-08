@@ -10,4 +10,5 @@ export type Receta = {
   duracion?: string;
   tratamiento?: any;
   idTratamiento?: number;
+  paciente?: any;
 };

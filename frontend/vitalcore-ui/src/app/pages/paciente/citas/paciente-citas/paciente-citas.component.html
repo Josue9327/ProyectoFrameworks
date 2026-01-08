@@ -1,43 +1,43 @@
 <div class="wrap">
-    <div class="head">
-        <h2 class="title">Mis Citas</h2>
-        <p class="muted">Listado de tus consultas médicas.</p>
-    </div>
+  <div class="head">
+    <h2 class="title">Mis Citas</h2>
+    <p class="muted">Listado de tus consultas médicas.</p>
+  </div>
 
-    <div class="cardx">
-        <div *ngIf="loading">Cargando citas...</div>
-        <div class="err" *ngIf="error">{{ error }}</div>
+  <div class="cardx">
+    <div *ngIf="loading">Cargando citas...</div>
+    <div class="err" *ngIf="error">{{ error }}</div>
 
-        <p-table *ngIf="!loading && !error" [value]="citas" [paginator]="true" [rows]="10" responsiveLayout="scroll">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Médico</th>
-                    <th>Especialidad</th>
-                    <th>Estado</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-c>
-                <tr>
-                    <td>{{ c.fecha | date:'dd/MM/yyyy' }}</td>
-                    <td>{{ c.hora }}</td>
-                    <td>
-                        <b>{{ c.doctor.nombre }} {{ c.doctor.appat }}</b>
-                    </td>
-                    <td>{{ c.doctor.especialidad }}</td>
-                    <td>
-                        <span class="badge" [ngClass]="getStatusClass(c.fecha)">
-                            {{ getStatus(c.fecha) }}
-                        </span>
-                    </td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td colspan="5">No tienes citas registradas.</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+    <p-table *ngIf="!loading && !error" [value]="citas" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Médico</th>
+          <th>Especialidad</th>
+          <th>Estado</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-c>
+        <tr>
+          <td>{{ c.fecha | date:'dd/MM/yyyy' }}</td>
+          <td>{{ c.hora }}</td>
+          <td>
+            <b>{{ c.doctor.nombre }} {{ c.doctor.appat }}</b>
+          </td>
+          <td>{{ c.doctor.especialidad }}</td>
+          <td>
+            <span class="badge" [ngClass]="getStatusClass(c.fecha)">
+              {{ getStatus(c.fecha) }}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">No tienes citas registradas.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>

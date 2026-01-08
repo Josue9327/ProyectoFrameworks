@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth.service';
 import { RecetasService } from '../../../../core/services/recetas.service';
 import { Receta } from '../../../../core/models/receta.model';
-
 import { TableModule } from 'primeng/table';
 
 @Component({
@@ -21,27 +20,36 @@ export class PacienteRecetasComponent implements OnInit {
   constructor(
     private recetasService: RecetasService,
     private auth: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     const user = this.auth.getUser();
+
     if (!user || user.rol !== 'PACIENTE') {
       this.error = 'No se pudo identificar al paciente.';
       this.loading = false;
       return;
     }
 
+    const uid = Number(user.idPaciente ?? user.id);
+
+    if (!uid) {
+      this.error = 'Error en datos de sesión (ID no encontrado).';
+      this.loading = false;
+      return;
+    }
+
     this.recetasService.getAll().subscribe({
       next: (all) => {
-        const uid = Number(user.idPaciente || user.id);
+        // ✅ el paciente viene dentro de tratamiento -> cita -> paciente
+        this.recetas = (all ?? []).filter(r =>
+          Number(r?.tratamiento?.cita?.paciente?.idPaciente) === uid
+        );
 
-        if (!uid) {
-          this.error = 'Error en datos de sesión (ID no encontrado).';
-          this.loading = false;
-          return;
-        }
+        console.log('UID paciente:', uid);
+        console.log('Recetas recibidas:', all);
+        console.log('Recetas filtradas:', this.recetas);
 
-        this.recetas = all.filter(r => r.pacienteId === uid);
         this.loading = false;
       },
       error: (e) => {
