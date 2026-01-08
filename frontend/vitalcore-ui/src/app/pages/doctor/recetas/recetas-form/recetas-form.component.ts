@@ -20,6 +20,9 @@ export class RecetasFormComponent implements OnInit {
   loading = false;
   tratamientos: Tratamiento[] = [];
   recetaToEdit: Receta | null = null;
+  showConfirmModal = false;
+  showSuccessModal = false;
+  showSuccessModalCreate = false;
 
   constructor(
     private fb: FormBuilder,
@@ -81,24 +84,17 @@ export class RecetasFormComponent implements OnInit {
       recetaData.idReceta = this.recetaId;
     }
 
-    console.log('Datos a enviar en la solicitud PUT:', recetaData);
-
     if (this.recetaId) {
-      this.recetasService.update(this.recetaId, recetaData).subscribe({
-        next: () => {
-          console.log('Receta actualizada con éxito');
-          this.router.navigate(['/doctor/recetas']);
-        },
-        error: (err) => {
-          console.error('Error actualizando la receta', err);
-          alert('Hubo un error al intentar actualizar la receta. Por favor, intente nuevamente.');
-        }
-      });
+      this.showConfirmModal = true;
     } else {
       this.recetasService.create(recetaData).subscribe({
         next: () => {
           console.log('Receta creada con éxito');
-          this.router.navigate(['/doctor/recetas']);
+          this.showSuccessModalCreate = true;
+          setTimeout(() => {
+            this.router.navigate(['/doctor/recetas']);
+            this.showSuccessModalCreate = false;
+          }, 2000);
         },
         error: (err) => {
           console.error('Error creando la receta', err);
@@ -106,5 +102,34 @@ export class RecetasFormComponent implements OnInit {
         }
       });
     }
+  }
+
+  confirmSave(): void {
+    this.showConfirmModal = false;
+    if (this.recetaId) {
+      this.recetasService.update(this.recetaId, this.recetaForm.value).subscribe({
+        next: () => {
+          console.log('Receta actualizada con éxito');
+          this.showSuccessModal = true;
+          setTimeout(() => {
+            this.router.navigate(['/doctor/recetas']);
+            this.showSuccessModal = false;
+          }, 2000);
+        },
+        error: (err) => {
+          console.error('Error actualizando la receta', err);
+          alert('Hubo un error al intentar actualizar la receta. Por favor, intente nuevamente.');
+        }
+      });
+    }
+  }
+
+  closeConfirmModal(): void {
+    this.showConfirmModal = false;
+  }
+
+  closeSuccessModal(): void {
+    this.showSuccessModal = false;
+    this.showSuccessModalCreate = false;
   }
 }
