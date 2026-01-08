@@ -7,5 +7,6 @@ export type Receta = {
   medicamento: string;
   dosis: string;
   duracion?: string;
+  tratamiento?: any;
   idTratamiento?: number;
 };

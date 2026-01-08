@@ -40,7 +40,7 @@
           <td style="font-size: 14px; color: #777; padding: 12px 15px;">{{ receta.tratamiento.diagnostico }}</td>
           <td>
             <button pButton icon="pi pi-pencil" style="background-color: #0A3D61; color: #fff; padding: 5px 15px; border-radius: 14px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 12px; margin-right: 8px;"
-              [routerLink]="['/doctor/recetas/:id', receta]">
+              [routerLink]="['/doctor/recetas', receta.idReceta]">
               <i class="pi pi-pencil" style="margin-right: 5px;"></i>
               Editar
             </button>
