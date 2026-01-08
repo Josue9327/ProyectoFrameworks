@@ -16,10 +16,12 @@ import { RecetasFormComponent } from './pages/doctor/recetas/recetas-form/receta
 import { PacientesListComponent } from './pages/doctor/pacientes/pacientes-list/pacientes-list.component';
 import { PacientesDetailComponent } from './pages/doctor/pacientes/pacientes-detail/pacientes-detail.component';
 import { PacientesFormComponent } from './pages/doctor/pacientes/pacientes-form/pacientes-form.component';
+import { TratamientoListComponent } from './pages/doctor/tratamientos/tratamiento-list/tratamiento-list.component';
+import { TratamientoFormComponent } from './pages/doctor/tratamientos/tratamiento-form/tratamiento-form.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  
+
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegisterComponent },
 
@@ -39,6 +41,9 @@ export const routes: Routes = [
   { path: 'doctor/pacientes/nuevo', component: PacientesFormComponent },
   { path: 'doctor/pacientes/:id', component: PacientesDetailComponent },
   { path: 'doctor/pacientes/:id/editar', component: PacientesFormComponent },
+  { path: 'doctor/tratamientos', component: TratamientoListComponent },
+  { path: 'doctor/tratamientos/nuevo', component: TratamientoFormComponent },
+  { path: 'doctor/tratamientos/:id', component: TratamientoFormComponent },
 
   { path: '**', redirectTo: '' }
 ];
