@@ -10,8 +10,8 @@
   </div>
 
   <div class="form-group">
-    <label for="tratamientoId">Tratamiento</label>
-    <select formControlName="tratamientoId" id="tratamientoId" class="form-control" required>
+    <label for="idTratamiento">Tratamiento</label>
+    <select formControlName="idTratamiento" id="idTratamiento" class="form-control" required>
       <option *ngFor="let tratamiento of tratamientos" [value]="tratamiento.idTratamiento">
         {{ tratamiento.diagnostico }}
       </option>

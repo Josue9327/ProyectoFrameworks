@@ -30,7 +30,7 @@ export class RecetasFormComponent implements OnInit {
     this.recetaForm = this.fb.group({
       medicamento: ['', Validators.required],
       dosis: ['', Validators.required],
-      tratamientoId: [null, Validators.required]
+      idTratamiento: [null, Validators.required]
     });
   }
 
@@ -66,7 +66,7 @@ export class RecetasFormComponent implements OnInit {
         this.recetaForm.patchValue({
           medicamento: data.medicamento,
           dosis: data.dosis,
-          tratamientoId: data.tratamiento.idTratamiento
+          idTratamiento: data.tratamiento.idTratamiento
         });
         this.loading = false;
       },
@@ -78,13 +78,17 @@ export class RecetasFormComponent implements OnInit {
 saveReceta(): void {
   if (this.recetaForm.invalid) return;
 
-  const recetaData: Receta = this.recetaForm.value;
+  const recetaData: any = this.recetaForm.value;  // Usamos 'any' para no forzar un tipo incompatible
+
+  // Asegúrate de incluir el 'idTratamiento' en los datos enviados
+  if (this.recetaId) {
+    recetaData.idReceta = this.recetaId;  // Incluye el idReceta si estás actualizando
+  }
+
   console.log('Datos a enviar en la solicitud PUT:', recetaData);
 
+  // Enviar la solicitud de creación o actualización
   if (this.recetaId) {
-    recetaData.idReceta = this.recetaId;  // Asegúrate de que el ID esté presente en la solicitud
-
-    // Actualizar receta
     this.recetasService.update(this.recetaId, recetaData).subscribe({
       next: () => {
         console.log('Receta actualizada con éxito');
@@ -92,6 +96,7 @@ saveReceta(): void {
       },
       error: (err) => {
         console.error('Error actualizando la receta', err);
+        alert('Hubo un error al intentar actualizar la receta. Por favor, intente nuevamente.');
       }
     });
   } else {
@@ -102,8 +107,10 @@ saveReceta(): void {
       },
       error: (err) => {
         console.error('Error creando la receta', err);
+        alert('Hubo un error al intentar crear la receta. Por favor, intente nuevamente.');
       }
     });
   }
 }
+
 }
