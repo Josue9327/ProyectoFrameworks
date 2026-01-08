@@ -119,10 +119,6 @@ export class CitasFormComponent implements OnInit {
       citaData.fecha = new Date(citaData.fecha).toISOString().split('T')[0];
     }
 
-    if (citaData.hora) {
-      citaData.hora = citaData.hora + ":00";
-    }
-
     if (this.citaId) {
       console.log('Actualizando cita con id:', this.citaId, citaData);
       this.citasService.update(this.citaId, citaData).subscribe({
@@ -140,6 +136,9 @@ export class CitasFormComponent implements OnInit {
       });
     } else {
       console.log('Creando nueva cita', citaData);
+      if (citaData.hora) {
+        citaData.hora = citaData.hora + ":00";
+      }
       this.citasService.create(citaData).subscribe({
         next: (newCita) => {
           console.log('Cita creada con éxito', newCita);
