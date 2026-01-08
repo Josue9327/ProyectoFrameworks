@@ -5,6 +5,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { RouterModule } from '@angular/router';
+import { TratamientosService } from '../../../../core/services/tratamientos.service';
 
 @Component({
   selector: 'app-recetas-list',
@@ -32,20 +33,14 @@ export class RecetasListComponent implements OnInit {
     }
 
     this.recetasService.getAll().subscribe({
-      next: (all) => {
-        const doctorId = user.idDoctor || user.id;
-        if (!doctorId) {
-          this.error = 'Error en los datos de sesión.';
-          this.loading = false;
-          return;
-        }
-        this.recetas = all.filter(r => r.doctorId === doctorId);
+      next: (data: Receta[]) => {
+        this.recetas = data;
         this.loading = false;
       },
       error: (err) => {
-        console.error(err);
-        this.error = 'No se pudieron cargar las recetas.';
+        this.error = 'Error cargando las recetas.';
         this.loading = false;
+        console.error('Error al cargar recetas:', err);
       }
     });
   }

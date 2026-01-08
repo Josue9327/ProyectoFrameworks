@@ -36,25 +36,13 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    console.log("Doctor ID desde AuthService:", doctorId);
-
     this.citasService.getAll().subscribe((citas) => {
-      console.log("Citas recibidas:", citas);
-
       const citasDoctor = citas.filter(cita => {
-        console.log(`Comparando: cita.doctor.idDoctor = ${cita.doctor.idDoctor}, doctorId = ${doctorId}`);
         return cita.doctor.idDoctor === doctorId;
       });
-
-      console.log("Citas filtradas para el doctor:", citasDoctor);
-
       this.citasCount = citasDoctor.length;
-      console.log(`Total de citas para el doctor con ID ${doctorId}:`, this.citasCount);
     });
 
-    this.recetasService.getAll().subscribe((recetas) => {
-      const recetasDoctor = recetas.filter(receta => receta.doctor.idDoctor === doctorId);
-      this.recetasCount = recetasDoctor.length;
-    });
+    this.recetasService.getAll().subscribe((recetas) => (this.recetasCount = recetas.length));
   }
 }

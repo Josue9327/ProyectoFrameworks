@@ -1,10 +1,211 @@
 .recetas-list {
+  padding: 20px 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.title {
+  color: #0a3d61;
+  font-weight: 900;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.muted {
+  color: #5c7d95;
+  margin: 6px 0 0;
+}
+
+.small {
+  font-size: 0.9rem;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px auto;
+  width: min(1100px, calc(100% - 40px));
+}
+
+.cardx {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e3eef7;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.08);
+}
+
+.no-recetas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-top: 30px;
-  padding: 20px;
+  max-height: 20%;
+
+  .message-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .message-icon {
+      margin-right: 10px;
+      font-size: 24px;
+      color: #0a3d61;
+    }
+
+    .message {
+      font-size: 22px;
+      color: #333;
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+
+  .btn-create {
+    background-color: #0A3D61;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 18px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .pi {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      background-color: #54777e;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background-color: #0A3D61;
+      transform: scale(1);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.p-table {
+  width: 100%;
+  margin-top: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  .p-datatable-thead {
+    background-color: #f4f4f4;
+  }
+
+  .p-datatable-thead th {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .p-datatable-tbody {
+    td {
+      font-size: 14px;
+      color: #777;
+      padding: 12px 15px;
+    }
+
+    td button {
+      background-color: #0A3D61;
+      color: #fff;
+      padding: 5px 15px;
+      border-radius: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-size: 12px;
+      margin-right: 8px;
+
+      &:hover {
+        background-color: #54777e;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background-color: #0A3D61;
+        transform: scale(1);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    td .btn-delete {
+      background-color: #d9534f;
+      color: #fff;
+      padding: 5px 15px;
+      border-radius: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-size: 12px;
+
+      &:hover {
+        background-color: #c9302c;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background-color: #d9534f;
+        transform: scale(1);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
 }
 
 .error-message {
-  color: red;
-  font-size: 1.2rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
   margin-top: 20px;
+  text-align: center;
+
+  p {
+    font-size: 16px;
+  }
 }

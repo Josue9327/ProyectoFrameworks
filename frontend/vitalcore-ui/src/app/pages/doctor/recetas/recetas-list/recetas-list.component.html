@@ -1,25 +1,58 @@
-<div class="recetas-list" *ngIf="!loading">
-  <p-table [value]="recetas" [paginator]="true" [rows]="10" [loading]="loading">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Medicamento</th>
-        <th>Dosis</th>
-        <th>Duración</th>
-        <th>Acciones</th>
-      </tr>
-    </ng-template>
+<div class="page" style="padding: 20px 0 40px;">
+  <div *ngIf="recetas.length > 0" style="display: flex; justify-content: right; max-width: 85%;">
+    <button pButton [routerLink]="'/doctor/recetas/nueva'"
+      style="background-color: #0A3D61; color: #fff; padding: 8px 16px; font-weight: 600; text-transform: uppercase; border: none; border-radius: 30px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;">
+      <i class="pi pi-plus" style="margin-right: 8px;"></i> Nueva Receta
+    </button>
+  </div>
+  <div class="title" style="color: #0a3d61; font-weight: 900; text-align: center; font-size: 36px;">
+    <i class="pi pi-calendar" style="margin-right: 10px; font-size: 40px;"></i> Recetas
+  </div>
+  <div class="muted" style="color: #5c7d95; margin: 6px 0 0; text-align: center;">
+    Gestión de recetas.
+  </div>
 
-    <ng-template pTemplate="body" let-receta>
-      <tr>
-        <td>{{ receta.medicamento }}</td>
-        <td>{{ receta.dosis }}</td>
-        <td>{{ receta.duracion }}</td>
-        <td>
-          <button pButton label="Ver" [routerLink]="'/doctor/recetas/' + receta.idReceta"></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <div *ngIf="recetas.length === 0" class="no-recetas" style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 30px; max-height: 20%;">
+    <div class="message-container" style="background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center; width: 100%; max-width: 400px; display: flex; align-items: center; justify-content: center;">
+      <i class="pi pi-info-circle message-icon" style="margin-right: 10px; font-size: 24px; color: #0a3d61;"></i>
+      <p class="message" style="font-size: 22px; color: #333; margin: 0; font-weight: 600;">No hay recetas disponibles.</p>
+    </div>
+    <button pButton class="btn-create" [routerLink]="'/doctor/recetas/nueva'" style="background-color: #0A3D61; color: #fff; padding: 10px 20px; border-radius: 30px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 16px; margin-top: 20px; width: 100%; max-width: 300px; display: flex; justify-content: center; align-items: center;">
+      <i class="pi pi-plus" style="margin-right: 10px;"></i> Crear nueva receta
+    </button>
+  </div>
+
+  <div *ngIf="recetas.length > 0" class="cardx" style="background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); margin-top: 30px;">
+    <p-table [value]="recetas" [paginator]="true" [rows]="10" [loading]="loading">
+      <ng-template pTemplate="header">
+        <tr style="font-weight: 600; font-size: 14px; text-align: center; background-color: #f4f4f4;">
+          <th>Medicamento</th>
+          <th>Dosis</th>
+          <th>Tratamiento</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-receta>
+        <tr style="text-align: center; border-bottom: 1px solid #e3eef7;">
+          <td style="font-size: 14px; color: #777; padding: 12px 15px;">{{ receta.medicamento }}</td>
+          <td style="font-size: 14px; color: #777; padding: 12px 15px;">{{ receta.dosis }}</td>
+          <td style="font-size: 14px; color: #777; padding: 12px 15px;">{{ receta.tratamiento.diagnostico }}</td>
+          <td>
+            <button pButton icon="pi pi-pencil" style="background-color: #0A3D61; color: #fff; padding: 5px 15px; border-radius: 14px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 12px; margin-right: 8px;"
+              [routerLink]="['/doctor/citas', receta]">
+              <i class="pi pi-pencil" style="margin-right: 5px;"></i>
+              Editar
+            </button>
+
+            <button pButton icon="pi pi-trash"  style="background-color: #d9534f; color: #fff; padding: 5px 15px; border-radius: 14px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 12px;">
+              <i class="pi pi-trash" style="margin-right: 5px;"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
 
 <div *ngIf="error" class="error-message">{{ error }}</div>
