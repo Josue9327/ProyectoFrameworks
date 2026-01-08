@@ -2,7 +2,7 @@
   <div class="citas-form-wrap">
     <div class="citas-form-card">
       <h2>{{ citaId ? 'Actualizar' : 'Crear' }} Cita</h2>
-      <div class="muted">Llena los detalles para crear una nueva cita.</div>
+      <div class="muted">Llena los detalles para crear o actualizar una cita.</div>
 
       <div class="form-group">
         <label for="pacienteId" class="lbl">Paciente</label>
@@ -41,3 +41,183 @@
     </div>
   </div>
 </form>
+
+<div class="modal-backdrop" *ngIf="showConfirmModal" (click)="closeConfirmModal()"></div>
+
+<div class="modal-dialog-container" *ngIf="showConfirmModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmación</h5>
+        <button type="button" class="close" (click)="closeConfirmModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas actualizar esta cita?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeConfirmModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="confirmUpdate()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="showSuccessModal" (click)="closeConfirmModal()"></div>
+
+<div class="modal-dialog-container" *ngIf="showSuccessModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cita Actualizada</h5>
+      </div>
+      <div class="modal-body">
+        La cita se ha actualizado con éxito.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="showSuccessModalCreate" (click)="closeConfirmModal()"></div>
+
+<div class="modal-dialog-container" *ngIf="showSuccessModalCreate">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cita Creada</h5>
+      </div>
+      <div class="modal-body">
+        La cita se ha creado con éxito.
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+  }
+
+  .modal-dialog-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1051;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .modal-dialog {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-width: 100%;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e3eef7;
+  }
+
+  .modal-title {
+    font-size: 20px;
+    color: #0a3d61;
+    font-weight: 1000;
+  }
+
+  .close {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: #0a3d61;
+    cursor: pointer;
+  }
+
+  .modal-body {
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #e3eef7;
+    padding: 10px;
+  }
+
+  .btn-secondary,
+  .btn-danger {
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+  }
+
+  .btn-secondary {
+    background-color: #f8f9fa;
+    color: #0a3d61;
+    border: none;
+  }
+
+  .btn-danger {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+  }
+
+  .btn-secondary:hover,
+  .btn-danger:hover {
+    background-color: #c0c0c0;
+  }
+
+  .title {
+    color: #0a3d61;
+    font-weight: 900;
+    text-align: center;
+    font-size: 36px;
+  }
+
+  .muted {
+    color: #5c7d95;
+    margin: 6px 0 0;
+    text-align: center;
+  }
+
+  .btn-vital {
+    display: inline-block;
+    background-color: #0a3d61;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+  }
+
+  .btn-vital:hover {
+    background-color: #54777e;
+    transform: scale(1.05);
+  }
+
+  .btn-vital:active {
+    background-color: #0a3d61;
+    transform: scale(1);
+  }
+</style>

@@ -30,6 +30,7 @@
           <th>Fecha</th>
           <th>Hora</th>
           <th>Estado</th>
+          <th>Tipo de Cita</th>
           <th>Acciones</th>
         </tr>
       </ng-template>
@@ -40,9 +41,12 @@
           <td style="font-size: 14px; color: #777; padding: 12px 15px;">{{ cita.fecha | date: 'dd/MM/yyyy' }}</td>
           <td style="font-size: 14px; color: #777; padding: 12px 15px;">{{ combineDateAndTime(cita.fecha, cita.hora) | date: 'HH:mm' }}</td>
           <td [ngClass]="getStatusClass(cita.fecha)" style="font-size: 14px; color: #777; padding: 12px 15px;">{{ getStatus(cita.fecha) }}</td>
+          <td style="font-size: 14px; color: #777; padding: 12px 15px;">{{ cita.tipoCita.nombre }}</td>
           <td>
-            <button pButton style="background-color: #0A3D61; color: #fff; padding: 5px 15px; border-radius: 14px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 12px; margin-right: 8px;">
-              <i class="pi pi-pencil" style="margin-right: 5px;"></i> Editar
+            <button pButton icon="pi pi-pencil" style="background-color: #0A3D61; color: #fff; padding: 5px 15px; border-radius: 14px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 12px; margin-right: 8px;"
+              [routerLink]="['/doctor/citas', cita.idCita]">
+              <i class="pi pi-pencil" style="margin-right: 5px;"></i>
+              Editar
             </button>
 
             <button pButton icon="pi pi-trash" (click)="confirmDelete(cita.idCita)" style="background-color: #d9534f; color: #fff; padding: 5px 15px; border-radius: 14px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 12px;">
