@@ -17,11 +17,11 @@
       <i class="pi pi-info-circle message-icon" style="margin-right: 10px; font-size: 24px; color: #0a3d61;"></i>
       <p class="message" style="font-size: 22px; color: #333; margin: 0; font-weight: 600;">No hay tratamientos disponibles.</p>
     </div>
-    <button pButton class="btn-create" [routerLink]="'/doctor/recetas/nueva'" style="background-color: #0A3D61; color: #fff; padding: 10px 20px; border-radius: 30px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 16px; margin-top: 20px; width: 100%; max-width: 300px; display: flex; justify-content: center; align-items: center;">
+    <button pButton class="btn-create" [routerLink]="'/doctor/tratamientos/nuevo'" style="background-color: #0A3D61; color: #fff; padding: 10px 20px; border-radius: 30px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 16px; margin-top: 20px; width: 100%; max-width: 300px; display: flex; justify-content: center; align-items: center;">
       <i class="pi pi-plus" style="margin-right: 10px;"></i> Crear nuevo tratamiento
     </button>
   </div>
-  <div *ngIf="!loading">
+  <div *ngIf="tratamientos.length > 0" class="cardx" style="background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); margin-top: 30px;">
     <p-table [value]="tratamientos" [paginator]="true" [rows]="10" [loading]="loading">
       <ng-template pTemplate="header">
         <tr style="font-weight: 600; font-size: 14px; text-align: center; background-color: #f4f4f4;">
