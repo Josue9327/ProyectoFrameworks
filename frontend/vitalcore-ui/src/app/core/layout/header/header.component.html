@@ -39,8 +39,8 @@
       </ng-container>
 
       <div class="user-menu" *ngIf="isLoggedIn">
-        <span class="uname">{{ user?.nombre }}</span>
-        <button (click)="logout()" class="btn-logout">Salir</button>
+        <span class="uname"><i class="pi pi-user" style="font-size: 10px;"></i> | {{ user?.nombre }}</span>
+        <button (click)="logout()" class="btn-logout"><i class="pi pi-sign-out" style="margin-right: 10px; font-size: 10px;"></i> Salir</button>
       </div>
     </nav>
   </div>
