@@ -46,20 +46,17 @@ export class RecetasListComponent implements OnInit {
     });
   }
 
-  // Método para confirmar la eliminación de una receta
   confirmDelete(receta: Receta): void {
-    this.recetaToDelete = receta;  // Guarda la receta seleccionada para eliminar
-    this.showConfirmDeleteModal = true; // Muestra el modal de confirmación
+    this.recetaToDelete = receta;
+    this.showConfirmDeleteModal = true;
   }
 
-  // Método para eliminar la receta
   deleteReceta(): void {
     if (this.recetaToDelete && this.recetaToDelete.idReceta) {
       this.recetasService.remove(this.recetaToDelete.idReceta).subscribe({
         next: () => {
-          // Eliminar la receta de la lista
           this.recetas = this.recetas.filter(r => r.idReceta !== this.recetaToDelete?.idReceta);
-          this.showConfirmDeleteModal = false; // Cierra el modal
+          this.showConfirmDeleteModal = false;
         },
         error: (err) => {
           this.error = 'Error al eliminar receta';
@@ -69,7 +66,6 @@ export class RecetasListComponent implements OnInit {
     }
   }
 
-  // Cerrar el modal de confirmación
   closeConfirmDeleteModal(): void {
     this.showConfirmDeleteModal = false;
   }

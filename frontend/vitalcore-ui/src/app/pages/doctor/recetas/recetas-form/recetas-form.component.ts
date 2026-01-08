@@ -7,6 +7,7 @@ import { TratamientosService } from '../../../../core/services/tratamientos.serv
 import { Tratamiento } from '../../../../core/models/tratamiento.model';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-recetas-form',
   templateUrl: './recetas-form.component.html',
@@ -28,7 +29,7 @@ export class RecetasFormComponent implements OnInit {
     private router: Router
   ) {
     this.recetaForm = this.fb.group({
-      medicamento: ['', Validators.required],
+      medicamentos: ['', Validators.required],
       dosis: ['', Validators.required],
       idTratamiento: [null, Validators.required]
     });
@@ -36,8 +37,6 @@ export class RecetasFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-
-    // Cargar tratamientos disponibles
     this.tratamientosService.getAll().subscribe({
       next: (data) => {
         this.tratamientos = data;
@@ -47,24 +46,22 @@ export class RecetasFormComponent implements OnInit {
       }
     });
 
-    // Obtener el ID de la receta desde la URL
     this.route.paramMap.subscribe((params) => {
       this.recetaId = +params.get('id')!;
       if (this.recetaId) {
-        this.loadReceta(this.recetaId);  // Cargar los detalles de la receta
+        this.loadReceta(this.recetaId);
       } else {
         this.loading = false;
       }
     });
   }
 
-  // Cargar la receta para editarla
   loadReceta(id: number): void {
     this.recetasService.getById(id).subscribe({
       next: (data: Receta) => {
         this.recetaToEdit = data;
         this.recetaForm.patchValue({
-          medicamento: data.medicamento,
+          medicamentos: data.medicamento,
           dosis: data.dosis,
           idTratamiento: data.tratamiento.idTratamiento
         });
@@ -75,42 +72,39 @@ export class RecetasFormComponent implements OnInit {
       }
     });
   }
-saveReceta(): void {
-  if (this.recetaForm.invalid) return;
 
-  const recetaData: any = this.recetaForm.value;  // Usamos 'any' para no forzar un tipo incompatible
+  saveReceta(): void {
+    if (this.recetaForm.invalid) return;
 
-  // Asegúrate de incluir el 'idTratamiento' en los datos enviados
-  if (this.recetaId) {
-    recetaData.idReceta = this.recetaId;  // Incluye el idReceta si estás actualizando
+    const recetaData: any = this.recetaForm.value
+    if (this.recetaId) {
+      recetaData.idReceta = this.recetaId;
+    }
+
+    console.log('Datos a enviar en la solicitud PUT:', recetaData);
+
+    if (this.recetaId) {
+      this.recetasService.update(this.recetaId, recetaData).subscribe({
+        next: () => {
+          console.log('Receta actualizada con éxito');
+          this.router.navigate(['/doctor/recetas']);
+        },
+        error: (err) => {
+          console.error('Error actualizando la receta', err);
+          alert('Hubo un error al intentar actualizar la receta. Por favor, intente nuevamente.');
+        }
+      });
+    } else {
+      this.recetasService.create(recetaData).subscribe({
+        next: () => {
+          console.log('Receta creada con éxito');
+          this.router.navigate(['/doctor/recetas']);
+        },
+        error: (err) => {
+          console.error('Error creando la receta', err);
+          alert('Hubo un error al intentar crear la receta. Por favor, intente nuevamente.');
+        }
+      });
+    }
   }
-
-  console.log('Datos a enviar en la solicitud PUT:', recetaData);
-
-  // Enviar la solicitud de creación o actualización
-  if (this.recetaId) {
-    this.recetasService.update(this.recetaId, recetaData).subscribe({
-      next: () => {
-        console.log('Receta actualizada con éxito');
-        this.router.navigate(['/doctor/recetas']);
-      },
-      error: (err) => {
-        console.error('Error actualizando la receta', err);
-        alert('Hubo un error al intentar actualizar la receta. Por favor, intente nuevamente.');
-      }
-    });
-  } else {
-    this.recetasService.create(recetaData).subscribe({
-      next: () => {
-        console.log('Receta creada con éxito');
-        this.router.navigate(['/doctor/recetas']);
-      },
-      error: (err) => {
-        console.error('Error creando la receta', err);
-        alert('Hubo un error al intentar crear la receta. Por favor, intente nuevamente.');
-      }
-    });
-  }
-}
-
 }

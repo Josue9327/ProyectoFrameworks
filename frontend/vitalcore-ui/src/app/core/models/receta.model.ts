@@ -4,7 +4,8 @@ export type Receta = {
   pacienteId?: number;
   doctorId?: number;
   fecha?: string;
-  medicamento: string;
+  medicamento?: string;
+  medicamentos: string;
   dosis: string;
   duracion?: string;
   tratamiento?: any;
