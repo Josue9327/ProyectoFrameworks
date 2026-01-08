@@ -5,7 +5,6 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { RouterModule } from '@angular/router';
-import { TratamientosService } from '../../../../core/services/tratamientos.service';
 
 @Component({
   selector: 'app-recetas-list',
@@ -18,6 +17,8 @@ export class RecetasListComponent implements OnInit {
   recetas: Receta[] = [];
   loading = true;
   error = '';
+  showConfirmDeleteModal = false;
+  recetaToDelete: Receta | null = null;
 
   constructor(
     private recetasService: RecetasService,
@@ -43,5 +44,33 @@ export class RecetasListComponent implements OnInit {
         console.error('Error al cargar recetas:', err);
       }
     });
+  }
+
+  // Método para confirmar la eliminación de una receta
+  confirmDelete(receta: Receta): void {
+    this.recetaToDelete = receta;  // Guarda la receta seleccionada para eliminar
+    this.showConfirmDeleteModal = true; // Muestra el modal de confirmación
+  }
+
+  // Método para eliminar la receta
+  deleteReceta(): void {
+    if (this.recetaToDelete && this.recetaToDelete.idReceta) {
+      this.recetasService.remove(this.recetaToDelete.idReceta).subscribe({
+        next: () => {
+          // Eliminar la receta de la lista
+          this.recetas = this.recetas.filter(r => r.idReceta !== this.recetaToDelete?.idReceta);
+          this.showConfirmDeleteModal = false; // Cierra el modal
+        },
+        error: (err) => {
+          this.error = 'Error al eliminar receta';
+          console.error('Error al eliminar receta', err);
+        }
+      });
+    }
+  }
+
+  // Cerrar el modal de confirmación
+  closeConfirmDeleteModal(): void {
+    this.showConfirmDeleteModal = false;
   }
 }
