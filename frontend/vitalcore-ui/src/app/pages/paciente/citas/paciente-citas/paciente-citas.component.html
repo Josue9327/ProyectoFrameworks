@@ -1,43 +1,77 @@
-<div class="wrap">
-  <div class="head">
-    <h2 class="title">Mis Citas</h2>
-    <p class="muted">Listado de tus consultas médicas.</p>
+<div class="page" style="padding: 20px 0 40px;">
+
+  <div class="wrap">
+    <div class="head" style="text-align: center; margin-bottom: 20px;">
+      <h2 class="title" style="color:#0a3d61; font-weight:900; font-size:36px;">
+        <i class="pi pi-calendar" style="margin-right:10px; font-size:40px;"></i>
+        Mis Citas
+      </h2>
+      <p class="muted" style="color:#5c7d95;">
+        Listado de tus consultas médicas.
+      </p>
+    </div>
+
+    <div class="cardx"
+      style="
+        background:#fff;
+        padding:20px;
+        border-radius:18px;
+        box-shadow:0 14px 34px rgba(0,0,0,0.08);
+        max-width:1100px;
+        margin:auto;
+      ">
+
+      <div *ngIf="loading" style="text-align:center;">
+        Cargando citas...
+      </div>
+
+      <div class="err" *ngIf="error" style="color:#d9534f; text-align:center;">
+        {{ error }}
+      </div>
+
+      <p-table
+        *ngIf="!loading && !error"
+        [value]="citas"
+        [paginator]="true"
+        [rows]="10"
+        responsiveLayout="scroll">
+
+        <ng-template pTemplate="header">
+          <tr style="background:#f4f6f8; text-align:center; font-weight:600;">
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Médico</th>
+            <th>Especialidad</th>
+            <th>Estado</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-c>
+          <tr style="text-align:center; border-bottom:1px solid #e3eef7;">
+            <td>{{ c.fecha | date:'dd/MM/yyyy' }}</td>
+            <td>{{ c.hora }}</td>
+            <td>
+              <b>{{ c.doctor.nombre }} {{ c.doctor.appat }}</b>
+            </td>
+            <td>{{ c.doctor.especialidad }}</td>
+            <td>
+              <span class="badge" [ngClass]="getStatusClass(c.fecha)">
+                {{ getStatus(c.fecha) }}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5" style="text-align:center;">
+              No tienes citas registradas.
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
   </div>
 
-  <div class="cardx">
-    <div *ngIf="loading">Cargando citas...</div>
-    <div class="err" *ngIf="error">{{ error }}</div>
-
-    <p-table *ngIf="!loading && !error" [value]="citas" [paginator]="true" [rows]="10" responsiveLayout="scroll">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Fecha</th>
-          <th>Hora</th>
-          <th>Médico</th>
-          <th>Especialidad</th>
-          <th>Estado</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-c>
-        <tr>
-          <td>{{ c.fecha | date:'dd/MM/yyyy' }}</td>
-          <td>{{ c.hora }}</td>
-          <td>
-            <b>{{ c.doctor.nombre }} {{ c.doctor.appat }}</b>
-          </td>
-          <td>{{ c.doctor.especialidad }}</td>
-          <td>
-            <span class="badge" [ngClass]="getStatusClass(c.fecha)">
-              {{ getStatus(c.fecha) }}
-            </span>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="5">No tienes citas registradas.</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
 </div>

@@ -1,40 +1,78 @@
-<div class="wrap">
-    <div class="head">
-        <h2 class="title">Mis Recetas</h2>
-        <p class="muted">Historial de recetas y medicamentos prescritos.</p>
+<div class="page" style="padding: 20px 0 40px;">
+
+  <div class="wrap">
+    <div class="head" style="text-align: center; margin-bottom: 20px;">
+      <h2 class="title" style="color:#0a3d61; font-weight:900; font-size:36px;">
+        <i class="pi pi-receipt" style="margin-right: 10px; font-size: 40px;"></i>
+        Mis Recetas
+      </h2>
+      <p class="muted" style="color:#5c7d95;">
+        Historial de recetas y medicamentos prescritos.
+      </p>
     </div>
 
-    <div class="cardx">
-        <div *ngIf="loading">Cargando recetas...</div>
-        <div class="err" *ngIf="error">{{ error }}</div>
+    <div class="cardx"
+      style="
+        background:#fff;
+        padding:20px;
+        border-radius:18px;
+        box-shadow:0 14px 34px rgba(0,0,0,0.08);
+        max-width:1100px;
+        margin:auto;
+      ">
 
-        <p-table *ngIf="!loading && !error" [value]="recetas" [paginator]="true" [rows]="10" responsiveLayout="scroll">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Fecha</th>
-                    <th>Médico</th>
-                    <th>Medicamento</th>
-                    <th>Indicaciones</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-r>
-                <tr>
-                    <td>{{ r.tratamiento.cita.fecha | date:'dd/MM/yyyy' }}</td>
-                    <td>
-                        <b>{{ r.tratamiento.cita.doctor.nombre }} {{ r.tratamiento.cita.doctor.appat }}</b>
-                    </td>
-                    <td>{{ r.medicamento }}</td>
-                    <td>
-                        <div>{{ r.dosis }}</div>
-                        <small class="muted">{{ r.tratamiento.diagnostico }}</small>
-                    </td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td colspan="4">No tienes recetas registradas.</td>
-                </tr>
-            </ng-template>
-        </p-table>
+      <div *ngIf="loading" style="text-align:center;">
+        Cargando recetas...
+      </div>
+
+      <div class="err" *ngIf="error" style="color:#d9534f; text-align:center;">
+        {{ error }}
+      </div>
+
+      <p-table
+        *ngIf="!loading && !error"
+        [value]="recetas"
+        [paginator]="true"
+        [rows]="10"
+        responsiveLayout="scroll">
+
+        <ng-template pTemplate="header">
+          <tr style="background:#f4f6f8; text-align:center; font-weight:600;">
+            <th>Fecha</th>
+            <th>Médico</th>
+            <th>Medicamento</th>
+            <th>Indicaciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-r>
+          <tr style="text-align:center; border-bottom:1px solid #e3eef7;">
+            <td>{{ r.tratamiento.cita.fecha | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <b>
+                {{ r.tratamiento.cita.doctor.nombre }}
+                {{ r.tratamiento.cita.doctor.appat }}
+              </b>
+            </td>
+            <td>{{ r.medicamento }}</td>
+            <td>
+              <div style="font-weight:600;">{{ r.dosis }}</div>
+              <small class="muted" style="color:#5c7d95;">
+                {{ r.tratamiento.diagnostico }}
+              </small>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="4" style="text-align:center;">
+              No tienes recetas registradas.
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
     </div>
+  </div>
 </div>
