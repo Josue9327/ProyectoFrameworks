@@ -1,7 +1,7 @@
 <form [formGroup]="recetaForm" (ngSubmit)="saveReceta()" *ngIf="!loading">
   <div class="recetas-form-wrap">
     <div class="recetas-form-card">
-      <h2>{{ recetaId ? 'Actualizar' : 'Crear' }} Cita</h2>
+      <h2>{{ recetaId ? 'Actualizar' : 'Crear' }} Receta</h2>
       <div class="muted">Llena los detalles para crear o actualizar una receta.</div>
       <div class="form-group">
         <label for="medicamentos">Medicamento</label>
