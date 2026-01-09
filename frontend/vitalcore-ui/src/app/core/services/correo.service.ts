@@ -4,16 +4,15 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CorreoService {
-  private base = environment.apiBaseUrl + '/enviarPDFCorreo';
+  private base = environment.apiBaseUrl + 'paciente/enviarPDFCorreo';
   constructor(private http: HttpClient) {}
 
   enviarPDFCorreo(correo: string): Observable<string> {
-    return this.http.get(
-      `${this.base}/${encodeURIComponent(correo)}`,
-      { responseType: 'text' }
-    );
+    return this.http.get(`${this.base}/${encodeURIComponent(correo)}`, {
+      responseType: 'text',
+    });
   }
 }
