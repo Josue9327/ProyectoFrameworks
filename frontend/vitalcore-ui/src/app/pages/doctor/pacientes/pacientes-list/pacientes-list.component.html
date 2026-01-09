@@ -1,19 +1,32 @@
 <div class="page" style="padding: 20px 0 40px;">
-  <div *ngIf="filtered.length > 0" style="display: grid; grid-template-columns: repeat(2, auto); max-width: 85%; margin: auto; gap: 60%;">
-    <button class="btn btn-vital" style="display: inline-block; background-color: #0a3d61; color: #fff; padding: 10px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease, transform 0.2s ease; text-transform: uppercase;" (click)="generatePDF()">
-      Generar Reporte PDF
+  <div *ngIf="filtered.length > 0" style="display: flex; justify-content: space-between; align-items: center; max-width: 85%; margin: 0 auto 20px; gap: 16px;">
+    <button class="btn-vital" style="background-color: #0a3d61; color: #fff; padding: 10px 22px; border-radius: 25px; font-weight: 600; text-transform: uppercase;transition: background-color 0.3s ease, transform 0.2s ease;"
+    onmouseover="this.style.backgroundColor='#54777e'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,.15)'"
+    onmouseout="this.style.backgroundColor='#0a3d61'; this.style.transform='none'; this.style.boxShadow='none'"
+    (click)="generatePDF()">
+      <i class="pi pi-file-pdf" style="margin-right: 8px;"></i> Generar reporte PDF
     </button>
-    <button pButton [routerLink]="'/doctor/pacientes/nuevo'"
-      style="background-color: #0A3D61; color: #fff; padding: 8px 16px; font-weight: 600; text-transform: uppercase; border: none; border-radius: 30px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;">
-      <i class="pi pi-plus" style="margin-right: 8px;"></i> Nuevo paciente
+
+    <button pButton [routerLink]="'/doctor/pacientes/nuevo'" style="background-color: #0A3D61; color: #fff; padding: 10px 22px; font-weight: 600; text-transform: uppercase; border: none; border-radius: 30px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;"
+    onmouseover="this.style.backgroundColor='#54777e'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,.15)'"
+    onmouseout="this.style.backgroundColor='#0a3d61'; this.style.transform='none'; this.style.boxShadow='none'"
+    >
+      <i class="pi pi-plus"></i> Nuevo paciente
     </button>
   </div>
-  <div class="title" style="color: #0a3d61; font-weight: 900; text-align: center; font-size: 36px;">
-    <i class="pi pi-calendar" style="margin-right: 10px; font-size: 40px;"></i> Pacientes
+  <hr style="max-width: 85%; margin: 25px auto;">
+  <div style="text-align: center;">
+    <div
+      class="title"
+      style="color: #0a3d61; font-weight: 900; font-size: 36px; display: flex; justify-content: center; align-items: center; gap: 10px;">
+      <i class="pi pi-users" style="font-size: 40px;"></i>
+      Pacientes
+    </div>
+    <div class="muted" style="color: #5c7d95; margin-top: 6px; font-size: 15px;">
+      Gestión y consulta de pacientes registrados.
+    </div>
   </div>
-  <div class="muted" style="color: #5c7d95; margin: 6px 0 0; text-align: center;">
-    Gestión y consulta de pacientes registrados.
-  </div>
+  <hr style="max-width: 85%; margin: 25px auto;">
 
   <div *ngIf="filtered.length === 0" class="no-pacientes" style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 30px; max-height: 20%;">
     <div class="message-container" style="background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center; width: 100%; max-width: 400px; display: flex; align-items: center; justify-content: center;">
