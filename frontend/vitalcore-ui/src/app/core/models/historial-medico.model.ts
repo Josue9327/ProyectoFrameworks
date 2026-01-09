@@ -1,8 +1,12 @@
-export type HistorialMedico = {
-    idHistorialMedico: number;
-    alergias: string;
-    enfermedadesCronicas: string;
-    adicciones: string;
-    discapacidades: string;
-    // link to patient optional here or just handled via service logic
-};
+import { Paciente } from './paciente.model';
+
+export interface HistorialMedico {
+  idHistorialMedico?: number;
+
+  alergias?: string;
+  enfermedadesCronicas?: string;
+  adicciones?: string;
+  discapacidades?: string;
+
+  paciente?: Paciente;
+}

@@ -19,6 +19,10 @@ export class PacientePerfilComponent implements OnInit {
   saving = false;
   error = '';
   success = '';
+  historialForm!: FormGroup;
+  historialSaving = false;
+  historialError = '';
+  historialSuccess = '';
 
   form!: FormGroup;
   paciente: Paciente | null = null;
@@ -31,7 +35,7 @@ export class PacientePerfilComponent implements OnInit {
     private historialService: HistorialMedicoService
   ) {
     this.form = this.fb.group({
-      nombre: [{ value: '', disabled: false }, [Validators.required]], // Editable as requested
+      nombre: [{ value: '', disabled: false }, [Validators.required]],
       appat: [{ value: '', disabled: false }, [Validators.required]],
       apmat: [{ value: '', disabled: false }, [Validators.required]],
       correo: ['', [Validators.required, Validators.email]],
@@ -39,6 +43,14 @@ export class PacientePerfilComponent implements OnInit {
       direccion: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]]
     });
+
+    this.historialForm = this.fb.group({
+  alergias: [''],
+  enfermedadesCronicas: [''],
+  adicciones: [''],
+  discapacidades: ['']
+});
+
   }
 
   ngOnInit(): void {
@@ -73,10 +85,6 @@ export class PacientePerfilComponent implements OnInit {
           direccion: p.direccion,
           fechaNacimiento: p.fechaNacimiento ? p.fechaNacimiento.split('T')[0] : ''
         });
-
-        // 2. Get History (after patient loaded)
-        // Note: HistorialMedicoController doesn't have "getByPacienteId".
-        // It only has "getAll" or "getById". We have to filter all (not efficient but necessary with current backend)
         this.loadHistory(id);
       },
       error: (e) => {
@@ -88,18 +96,75 @@ export class PacientePerfilComponent implements OnInit {
   }
 
   loadHistory(pacienteId: number) {
-    this.historialService.getAll().subscribe({
-      next: (all) => {
-        // Filter history where h.paciente.idPaciente == pacienteId
-        this.historial = all.find(h => (h as any).paciente && (h as any).paciente.idPaciente === pacienteId) || null;
-        this.loading = false;
-      },
-      error: (e) => {
-        console.warn('No se pudo cargar historial o no existe', e);
-        // Not critical error for profile view
-        this.loading = false;
+  this.historialService.getAll().subscribe({
+    next: (all) => {
+      this.historial =
+        all.find(h => h.paciente?.idPaciente === pacienteId) || null;
+
+      if (this.historial) {
+        this.historialForm.patchValue({
+          alergias: this.historial.alergias,
+          enfermedadesCronicas: this.historial.enfermedadesCronicas,
+          adicciones: this.historial.adicciones,
+          discapacidades: this.historial.discapacidades
+        });
       }
-    });
+
+      this.loading = false;
+    },
+    error: () => {
+      this.loading = false;
+    }
+  });
+}
+
+  saveHistorial() {
+    this.historialError = '';
+    this.historialSuccess = '';
+
+    if (!this.paciente?.idPaciente) return;
+
+    this.historialSaving = true;
+
+    const payload = {
+      alergias: this.historialForm.value.alergias,
+      enfermedadesCronicas: this.historialForm.value.enfermedadesCronicas,
+      adicciones: this.historialForm.value.adicciones,
+      discapacidades: this.historialForm.value.discapacidades,
+      pacienteId: this.paciente.idPaciente
+    };
+
+    if (this.historial?.idHistorialMedico) {
+      this.historialService
+        .update(this.historial.idHistorialMedico, payload)
+        .subscribe({
+          next: (updated) => {
+            this.historial = updated;
+            this.historialSuccess = 'Historial actualizado correctamente';
+            this.historialSaving = false;
+          },
+          error: (e) => {
+            console.error(e);
+            this.historialError = 'Error al actualizar historial';
+            this.historialSaving = false;
+          }
+        });
+    }
+
+    else {
+      this.historialService.create(payload).subscribe({
+        next: (created) => {
+          this.historial = created;
+          this.historialSuccess = 'Historial creado correctamente';
+          this.historialSaving = false;
+        },
+        error: (e) => {
+          console.error(e);
+          this.historialError = 'Error al crear historial';
+          this.historialSaving = false;
+        }
+      });
+    }
   }
 
   save() {
@@ -119,14 +184,10 @@ export class PacientePerfilComponent implements OnInit {
       ...this.form.getRawValue()
     };
 
-    // Fix date format if needed or backend accepts YYYY-MM-DD string directly?
-    // Entity uses Date. String 'YYYY-MM-DD' usually works if backend parses it OR sends UTC.
-    // The previous form component used raw value. I'll stick to that.
-
     this.pacientesService.update(this.paciente.idPaciente, payload).subscribe({
       next: (updated) => {
         this.paciente = updated;
-        this.auth.setUser({ ...this.auth.getUser(), ...updated }); // Update session info too
+        this.auth.setUser({ ...this.auth.getUser(), ...updated });
         this.success = 'Perfil actualizado correctamente';
         this.saving = false;
       },

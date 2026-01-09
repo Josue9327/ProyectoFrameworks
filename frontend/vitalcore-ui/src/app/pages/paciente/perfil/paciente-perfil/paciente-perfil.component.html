@@ -5,7 +5,6 @@
     </div>
 
     <div class="grid-layout">
-        <!-- Left: Personal Form -->
         <div class="cardx">
             <h3 class="sub">Datos Personales</h3>
 
@@ -54,33 +53,44 @@
             </form>
         </div>
 
-        <!-- Right: History (ReadOnly) -->
         <div class="cardx">
-            <h3 class="sub">Historial Básico</h3>
-            <div *ngIf="loading">Cargando...</div>
+          <h3 class="sub">Historial Médico</h3>
 
-            <div *ngIf="!loading && !historial">
-                <p class="muted">No hay historial médico registrado.</p>
+          <div *ngIf="loading">Cargando...</div>
+
+          <form *ngIf="!loading" [formGroup]="historialForm" (ngSubmit)="saveHistorial()">
+
+            <div class="form-grid">
+              <div class="full">
+                <label>Alergias</label>
+                <textarea class="input" rows="2" formControlName="alergias"></textarea>
+              </div>
+
+              <div class="full">
+                <label>Enfermedades Crónicas</label>
+                <textarea class="input" rows="2" formControlName="enfermedadesCronicas"></textarea>
+              </div>
+
+              <div class="full">
+                <label>Adicciones</label>
+                <textarea class="input" rows="2" formControlName="adicciones"></textarea>
+              </div>
+
+              <div class="full">
+                <label>Discapacidades</label>
+                <textarea class="input" rows="2" formControlName="discapacidades"></textarea>
+              </div>
             </div>
 
-            <div *ngIf="!loading && historial" class="history-list">
-                <div class="h-item">
-                    <b>Alergias</b>
-                    <p>{{ historial.alergias || 'Ninguna' }}</p>
-                </div>
-                <div class="h-item">
-                    <b>Enfermedades Crónicas</b>
-                    <p>{{ historial.enfermedadesCronicas || 'Ninguna' }}</p>
-                </div>
-                <div class="h-item">
-                    <b>Adicciones</b>
-                    <p>{{ historial.adicciones || 'Ninguna' }}</p>
-                </div>
-                <div class="h-item">
-                    <b>Discapacidades</b>
-                    <p>{{ historial.discapacidades || 'Ninguna' }}</p>
-                </div>
+            <div class="msgs">
+              <div class="err" *ngIf="historialError">{{ historialError }}</div>
+              <div class="success" *ngIf="historialSuccess">{{ historialSuccess }}</div>
             </div>
+
+            <button class="btn btn-vital w-100 mt-3" [disabled]="historialSaving">
+              {{ historialSaving ? 'Guardando...' : 'Guardar Historial' }}
+            </button>
+          </form>
         </div>
     </div>
 </div>
