@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class CorreoService {
-  private base = environment.apiBaseUrl + 'paciente/enviarPDFCorreo';
+  private base = environment.apiBaseUrl + '/paciente/enviarPDFCorreo';
   constructor(private http: HttpClient) {}
 
   enviarPDFCorreo(correo: string): Observable<string> {
